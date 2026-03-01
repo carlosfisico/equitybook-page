@@ -100,6 +100,53 @@
             line-height: 1.5;
         }
 
+        section.pricing {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 0 24px 64px;
+            text-align: center;
+        }
+
+        .pricing-card {
+            background: #13131f;
+            border: 1px solid #1e1e30;
+            border-radius: 20px;
+            padding: 36px 28px;
+        }
+
+        .pricing-card .price {
+            font-size: 2.4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #4fc3f7, #7c4dff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 4px;
+        }
+
+        .pricing-card .price-label {
+            font-size: 0.9rem;
+            color: #7777aa;
+            margin-bottom: 20px;
+        }
+
+        .pricing-card .trial-badge {
+            display: inline-block;
+            background: rgba(79, 195, 247, 0.12);
+            border: 1px solid rgba(79, 195, 247, 0.3);
+            color: #4fc3f7;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 6px 16px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+        }
+
+        .pricing-card p {
+            font-size: 0.9rem;
+            color: #7777aa;
+            line-height: 1.6;
+        }
+
         section.privacy {
             max-width: 720px;
             margin: 0 auto;
@@ -179,8 +226,17 @@
             <div class="feature-card">
                 <div class="icon">🔒</div>
                 <h3>Privacidad total</h3>
-                <p>Tus datos viven únicamente en tu dispositivo. Sin servidores, sin cuentas, sin suscripciones. Acceso protegido con Face ID o Touch ID.</p>
+                <p>Tus datos viven únicamente en tu dispositivo. Sin servidores, sin cuentas, sin rastreo. Acceso protegido con Face ID o Touch ID.</p>
             </div>
+        </div>
+    </section>
+
+    <section class="pricing">
+        <div class="pricing-card">
+            <div class="trial-badge">✦ 7 días de prueba gratuita</div>
+            <div class="price">$2.99 USD</div>
+            <div class="price-label">Precio de lanzamiento por tiempo limitado · después $4.99</div>
+            <p>Sin suscripciones. Paga una vez y úsala para siempre. Prueba gratis durante 7 días y compra solo si te convence.</p>
         </div>
     </section>
 
@@ -188,7 +244,7 @@
         <p>
             <span>🔒 Tu privacidad es prioridad.</span><br>
             Todos tus datos se guardan únicamente en tu dispositivo.<br>
-            Sin servidores externos, sin suscripciones, sin rastreo.
+            Sin servidores externos, sin rastreo.
         </p>
     </section>
 
