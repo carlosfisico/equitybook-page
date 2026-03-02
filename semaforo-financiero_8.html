@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semáforo Financiero 🚦</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap');
+  :root {
+    --bg:#0a0a0f;--card:#14141e;--border:#1e1e2e;--text:#e8e8f0;--muted:#5a5a72;
+    --green:#00e676;--red:#ff5252;--yellow:#ffd740;--blue:#448aff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;padding:12px 12px 40px}
+  .header{text-align:center;padding:20px 0 8px}
+  .header h1{font-family:'Space Mono',monospace;font-size:1.3rem;background:linear-gradient(135deg,#00e676,#7c4dff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .header .sub{color:var(--muted);font-size:.75rem;margin-top:4px}
+  .status-bar{text-align:center;font-size:.7rem;color:var(--muted);font-family:'Space Mono',monospace;margin:10px 0 14px;display:flex;align-items:center;justify-content:center;gap:6px}
+  .status-bar .dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+  .top-bar{max-width:620px;margin:0 auto 16px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+  .refresh-btn,.help-btn{background:var(--card);border:1px solid var(--border);color:var(--text);padding:8px 18px;border-radius:20px;font-family:'DM Sans',sans-serif;font-size:.8rem;cursor:pointer;transition:all .2s}
+  .refresh-btn:hover,.help-btn:hover{border-color:#7c4dff}
+  .refresh-btn:disabled{opacity:.5;cursor:wait}
+  .countdown{font-family:'Space Mono',monospace;font-size:.65rem;color:var(--muted);text-align:center;margin-bottom:12px}
+  .legend{max-width:620px;margin:0 auto 16px;display:flex;justify-content:center;gap:14px;flex-wrap:wrap;font-size:.72rem;color:var(--muted)}
+
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:100;justify-content:center;align-items:center;padding:16px}
+  .modal-overlay.active{display:flex}
+  .modal{background:#1a1a28;border:1px solid var(--border);border-radius:16px;max-width:500px;width:100%;max-height:85vh;overflow-y:auto;padding:24px}
+  .modal h2{font-family:'Space Mono',monospace;font-size:1rem;margin-bottom:16px}
+  .modal-close{float:right;background:none;border:none;color:var(--muted);font-size:1.3rem;cursor:pointer;padding:4px 8px}
+  .modal-close:hover{color:var(--text)}
+  .help-item{padding:12px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+  .help-item:last-child{border-bottom:none}
+  .help-item .help-name{font-weight:700;font-size:.9rem;margin-bottom:4px}
+  .help-item .help-tech{font-family:'Space Mono',monospace;font-size:.65rem;color:var(--muted);margin-bottom:6px}
+  .help-item .help-desc{font-size:.82rem;color:#b0b0c0;line-height:1.5}
+
+  .tip-trigger{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,.06);color:var(--muted);font-size:.55rem;cursor:pointer;margin-left:4px;border:1px solid rgba(255,255,255,.1);position:relative;flex-shrink:0;transition:all .2s}
+  .tip-trigger:hover{background:rgba(124,77,255,.2);color:var(--text);border-color:#7c4dff}
+  .tip-bubble{display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#252535;border:1px solid #333;border-radius:10px;padding:10px 14px;font-size:.72rem;color:#d0d0e0;width:220px;z-index:50;line-height:1.5;box-shadow:0 8px 24px rgba(0,0,0,.5);font-family:'DM Sans',sans-serif;font-weight:400}
+  .tip-bubble::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:#252535}
+  .tip-trigger.active .tip-bubble{display:block}
+
+  .cards{max-width:620px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;transition:all .3s;animation:fadeIn .4s ease both}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  .card.buy{border-left:3px solid var(--green)}
+  .card.sell{border-left:3px solid var(--red)}
+  .card.wait{border-left:3px solid var(--yellow)}
+
+  .card-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:6px}
+  .signal-emoji{font-size:1.8rem;flex-shrink:0;width:44px;text-align:center}
+  .info{flex:1;min-width:0}
+  .info .name{font-weight:700;font-size:.95rem}
+  .info .ticker{font-family:'Space Mono',monospace;font-size:.68rem;color:var(--muted)}
+  .price-block{text-align:right;flex-shrink:0}
+  .price-block .price{font-family:'Space Mono',monospace;font-weight:700;font-size:1.05rem}
+  .price-block .change{font-family:'Space Mono',monospace;font-size:.73rem;margin-top:2px}
+  .price-block .change.up{color:var(--green)}
+  .price-block .change.down{color:var(--red)}
+
+  .signal-badge{display:inline-block;padding:4px 14px;border-radius:8px;font-family:'Space Mono',monospace;font-weight:700;font-size:.82rem;letter-spacing:.5px;margin-bottom:8px}
+  .signal-badge.buy-badge{background:rgba(0,230,118,.12);color:var(--green)}
+  .signal-badge.sell-badge{background:rgba(255,82,82,.12);color:var(--red)}
+  .signal-badge.wait-badge{background:rgba(255,215,64,.12);color:var(--yellow)}
+
+  .verdict-line{font-size:.78rem;margin-bottom:10px;line-height:1.4;color:#b8b8c8}
+
+  .thermo-row{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+  .thermo-label{font-size:.68rem;color:var(--muted);font-family:'Space Mono',monospace;display:flex;align-items:center;gap:2px;flex-shrink:0}
+  .thermo-container{flex:1;height:18px;background:#1a1a28;border-radius:9px;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.06)}
+  .thermo-fill{height:100%;border-radius:9px;transition:width .6s ease,background .6s ease}
+  .thermo-fill.cold{background:linear-gradient(90deg,#1565c0,#42a5f5)}
+  .thermo-fill.normal{background:linear-gradient(90deg,#42a5f5,#66bb6a)}
+  .thermo-fill.warm{background:linear-gradient(90deg,#66bb6a,#ffa726)}
+  .thermo-fill.hot{background:linear-gradient(90deg,#ffa726,#ef5350)}
+  .thermo-emoji{font-size:1rem;flex-shrink:0}
+  .thermo-val{font-family:'Space Mono',monospace;font-size:.66rem;flex-shrink:0;width:26px;text-align:right}
+  .thermo-word{font-size:.65rem;flex-shrink:0;min-width:110px}
+  .thermo-word.cold-t{color:#42a5f5}
+  .thermo-word.normal-t{color:#66bb6a}
+  .thermo-word.warm-t{color:#ffa726}
+  .thermo-word.hot-t{color:#ef5350}
+
+  .trading-zones{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+  .zone{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:10px;padding:10px 12px}
+  .zone-label{font-size:.6rem;font-family:'Space Mono',monospace;color:var(--muted);margin-bottom:4px;display:flex;align-items:center;gap:2px}
+  .zone-value{font-family:'Space Mono',monospace;font-weight:700;font-size:.86rem}
+  .zone-sub{font-size:.56rem;color:var(--muted);font-family:'Space Mono',monospace;margin-top:2px}
+  .zone.long .zone-value{color:var(--green)}
+  .zone.short .zone-value{color:var(--red)}
+  .zone.tp .zone-value{color:var(--blue)}
+  .zone.stop .zone-value{color:var(--yellow)}
+
+  .indicators{display:flex;gap:5px;flex-wrap:wrap}
+  .ind-tag{font-size:.58rem;font-family:'Space Mono',monospace;padding:3px 7px;border-radius:6px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)}
+  .ind-tag.good{color:var(--green);border-color:rgba(0,230,118,.15)}
+  .ind-tag.bad{color:var(--red);border-color:rgba(255,82,82,.15)}
+  .ind-tag.meh{color:var(--yellow);border-color:rgba(255,215,64,.15)}
+
+  .loading{text-align:center;padding:60px 20px;color:var(--muted);font-size:.9rem}
+  .loading .spinner{display:inline-block;width:24px;height:24px;border:2px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite;margin-bottom:12px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .progress{max-width:620px;margin:0 auto 10px;font-size:.7rem;color:var(--muted);font-family:'Space Mono',monospace;text-align:center}
+  .disclaimer{text-align:center;font-size:.58rem;color:var(--muted);margin-top:20px;padding:0 16px 20px;line-height:1.5}
+
+  @media(max-width:400px){.trading-zones{gap:6px}.zone{padding:8px 10px}.zone-value{font-size:.78rem}.tip-bubble{width:180px;font-size:.68rem}}
+</style>
+</head>
+<body>
+
+<div class="modal-overlay" id="helpModal">
+  <div class="modal">
+    <button class="modal-close" onclick="toggleHelp()">&times;</button>
+    <h2>📖 ¿Qué significa todo?</h2>
+    <div class="help-item">
+      <div class="help-name">🟢 ¡COMPRA! / 🔴 ¡NO COMPRES! / 🟡 ¡ESPERA!</div>
+      <div class="help-desc">Es la recomendación del semáforo basada en todos los indicadores juntos.<br><br>
+        <b>🟢 ¡COMPRA!</b> = La mayoría de indicadores dicen que va a subir.<br>
+        <b>🔴 ¡NO COMPRES!</b> = Va para abajo. Si ya tienes, considera vender. También podrías entrar en "short" (apostar a que baja).<br>
+        <b>🟡 ¡ESPERA!</b> = No hay señal clara. Mejor no hagas nada hasta que se defina.
+      </div>
+    </div>
+    <div class="help-item">
+      <div class="help-name">🛒 Precio para comprar</div>
+      <div class="help-tech">Nombre técnico: Zona de entrada Long</div>
+      <div class="help-desc">Si crees que va a subir, este es buen precio para entrar. Está calculado con zonas donde el precio suele rebotar hacia arriba.</div>
+    </div>
+    <div class="help-item">
+      <div class="help-name">📉 Precio para ir en contra</div>
+      <div class="help-tech">Nombre técnico: Zona de entrada Short</div>
+      <div class="help-desc">Si crees que va a bajar, en este precio puedes "apostar a la baja". Se calcula con zonas donde el precio suele rebotar hacia abajo.</div>
+    </div>
+    <div class="help-item">
+      <div class="help-name">💰 Take Profit</div>
+      <div class="help-tech">Nombre técnico: Target / Objetivo</div>
+      <div class="help-desc">Aquí cobras tu ganancia. Cuando el precio llegue aquí, ¡vende y festeja! 🎉</div>
+    </div>
+    <div class="help-item">
+      <div class="help-name">🛑 Salte aquí si va mal</div>
+      <div class="help-tech">Nombre técnico: Stop Loss</div>
+      <div class="help-desc">Si el precio llega aquí, sal. Perderás un poco, pero te protege de perder MUCHO. Es tu cinturón de seguridad. 🔒</div>
+    </div>
+    <div class="help-item">
+      <div class="help-name">🌡️ Termómetro</div>
+      <div class="help-tech">Nombre técnico: RSI (Relative Strength Index)</div>
+      <div class="help-desc">
+        Mide cuánta gente está comprando este activo:<br><br>
+        🥶 <b>Nadie compra</b> (0-30) = Está olvidado, puede ser oportunidad<br>
+        😎 <b>Ni fu ni fa</b> (30-50) = Raza comprando y raza vendiendo por igual<br>
+        🙂 <b>Están comprando</b> (50-70) = Hay interés, la gente lo está comprando<br>
+        🔥 <b>Todos compraron</b> (70-100) = Ya todos compraron, ¿quién queda? Cuidado, puede caer
+      </div>
+    </div>
+    <div class="help-item">
+      <div class="help-name">📏 Promedio</div>
+      <div class="help-tech">Nombre técnico: SMA (Simple Moving Average)</div>
+      <div class="help-desc">El precio promedio de los últimos días. Arriba del promedio = buena señal. Abajo = mala señal.</div>
+    </div>
+    <div class="help-item">
+      <div class="help-name">🔀 Impulso</div>
+      <div class="help-tech">Nombre técnico: MACD</div>
+      <div class="help-desc">Mide si la fuerza del movimiento crece o se agota. Positivo = fuerza para arriba. Negativo = fuerza para abajo.</div>
+    </div>
+  </div>
+</div>
+
+<div class="header">
+  <h1>🚦 Semáforo Financiero</h1>
+  <p class="sub">¿Compro o no compro? Simple y al punto.</p>
+</div>
+
+<div class="status-bar">
+  <span class="dot"></span>
+  <span id="updateTime">Cargando...</span>
+</div>
+
+<div class="top-bar">
+  <button class="refresh-btn" id="refreshBtn" onclick="manualRefresh()">🔄 Actualizar</button>
+  <button class="help-btn" onclick="toggleHelp()">📖 ¿Qué significa todo?</button>
+</div>
+
+<div class="countdown" id="countdown">⏱️ Se actualiza solo cada 5 min</div>
+
+<div class="legend">
+  <span>🟢 ¡COMPRA!</span>
+  <span>🔴 ¡NO COMPRES!</span>
+  <span>🟡 ¡ESPERA!</span>
+</div>
+
+<div id="progress" class="progress"></div>
+<div class="cards" id="cards">
+  <div class="loading"><div class="spinner"></div><br>Consultando mercados...</div>
+</div>
+
+<div class="disclaimer">
+  ⚠️ Esto NO es consejo financiero. Son señales técnicas automatizadas, NO garantías.<br>
+  Siempre gestiona tu riesgo. Nunca inviertas lo que no puedas perder.
+</div>
+
+<script>
+function toggleTip(el){
+  document.querySelectorAll('.tip-trigger.active').forEach(t=>{if(t!==el)t.classList.remove('active')});
+  el.classList.toggle('active');
+}
+document.addEventListener('click',e=>{if(!e.target.closest('.tip-trigger'))document.querySelectorAll('.tip-trigger.active').forEach(t=>t.classList.remove('active'))});
+function toggleHelp(){document.getElementById('helpModal').classList.toggle('active')}
+document.getElementById('helpModal').addEventListener('click',e=>{if(e.target===e.currentTarget)toggleHelp()});
+
+const ASSETS=[
+  {symbol:'GC=F',name:'Oro',emoji:'🥇'},
+  {symbol:'SI=F',name:'Plata',emoji:'🥈'},
+  {symbol:'BTC-USD',name:'Bitcoin',emoji:'₿'},
+  {symbol:'ETH-USD',name:'Ethereum',emoji:'⟠'},
+  {symbol:'^GSPC',name:'S&P 500',emoji:'📊'},
+  {symbol:'AAPL',name:'Apple',emoji:'🍎'},
+  {symbol:'NVDA',name:'NVIDIA',emoji:'🟩'},
+  {symbol:'TSLA',name:'Tesla',emoji:'⚡'},
+  {symbol:'MSFT',name:'Microsoft',emoji:'🪟'},
+  {symbol:'AMZN',name:'Amazon',emoji:'📦'},
+];
+
+async function fetchQuote(symbol){
+  const url=`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=1mo&interval=1d&includePrePost=false`;
+  const px=[
+    u=>`https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
+    u=>`https://corsproxy.io/?${encodeURIComponent(u)}`,
+    u=>`https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(u)}`,
+  ];
+  let err;
+  for(const p of px){
+    try{
+      const r=await fetch(p(url),{signal:AbortSignal.timeout(12000)});
+      if(!r.ok)throw new Error(`HTTP ${r.status}`);
+      const j=JSON.parse(await r.text());
+      if(!j.chart?.result)throw new Error('Bad data');
+      const res=j.chart.result[0],q=res.indicators.quote[0];
+      return{symbol:res.meta.symbol,price:res.meta.regularMarketPrice,prevClose:res.meta.chartPreviousClose,closes:q.close.filter(v=>v!=null),highs:q.high.filter(v=>v!=null),lows:q.low.filter(v=>v!=null)};
+    }catch(e){err=e}
+  }
+  throw err;
+}
+
+function calcZones(data){
+  const{price,closes,highs,lows}=data;
+  const rH=highs.slice(-20),rL=lows.slice(-20);
+  const hh=Math.max(...rH),ll=Math.min(...rL),range=hh-ll;
+  const f382=hh-range*.382,f500=hh-range*.5,f618=hh-range*.618;
+  const n=closes.length,sma20=n>=20?closes.slice(-20).reduce((a,b)=>a+b,0)/20:price;
+  const bull=price>sma20;
+  if(bull)return{buy:Math.max(f382,sma20*.998),short:hh*1.005,tpLong:hh+range*.618,tpShort:f500,slLong:Math.min(f618,sma20*.98),slShort:hh+range*.382,bull};
+  return{buy:ll*.995,short:Math.min(f382,sma20*1.002),tpLong:f500,tpShort:ll-range*.618,slLong:ll-range*.236,slShort:Math.max(hh-range*.236,sma20*1.02),bull};
+}
+
+function calcRSI(c){const n=c.length;if(n<15)return null;let g=0,l=0;for(let i=n-14;i<n;i++){const d=c[i]-c[i-1];if(d>0)g+=d;else l-=d}const rs=l===0?100:(g/14)/(l/14);return 100-(100/(1+rs))}
+
+function analyze(data){
+  const{price,prevClose,closes}=data,n=closes.length;
+  if(n<5)return{signal:'wait',verdict:'No hay datos suficientes para analizar.',reasons:[],dailyChange:0,price,zones:null,rsi:null};
+  const signals=[];let score=0;
+  const dailyChange=((price-prevClose)/prevClose)*100;
+  if(dailyChange>1){score+=2;signals.push({text:`Hoy: +${dailyChange.toFixed(1)}%`,type:'good'})}
+  else if(dailyChange>0){score+=1;signals.push({text:`Hoy: +${dailyChange.toFixed(1)}%`,type:'good'})}
+  else if(dailyChange<-1){score-=2;signals.push({text:`Hoy: ${dailyChange.toFixed(1)}%`,type:'bad'})}
+  else if(dailyChange<0){score-=1;signals.push({text:`Hoy: ${dailyChange.toFixed(1)}%`,type:'bad'})}
+  else signals.push({text:'Hoy: 0%',type:'meh'});
+  const sma5=closes.slice(-5).reduce((a,b)=>a+b,0)/5;
+  const sma20=n>=20?closes.slice(-20).reduce((a,b)=>a+b,0)/20:null;
+  if(sma20){if(sma5>sma20){score+=1;signals.push({text:'📏 Promedio ✓',type:'good'})}else{score-=1;signals.push({text:'📏 Promedio ✗',type:'bad'})}}
+  if(price>sma5){score+=1;signals.push({text:'Sobre promedio',type:'good'})}else{score-=1;signals.push({text:'Bajo promedio',type:'bad'})}
+  const rsi=calcRSI(closes);
+  if(rsi!==null){
+    if(rsi>70){score-=1;signals.push({text:'🌡️ Todos compraron ⚠️',type:'bad'})}
+    else if(rsi>55){score+=1;signals.push({text:'🌡️ Están comprando',type:'good'})}
+    else if(rsi<30){score+=1;signals.push({text:'🌡️ Nadie compra 🔥',type:'good'})}
+    else if(rsi<45){score-=1;signals.push({text:'🌡️ Ni fu ni fa',type:'meh'})}
+    else signals.push({text:'🌡️ Ni fu ni fa',type:'meh'});
+  }
+  if(n>=26){
+    const ema=(arr,p)=>{const k=2/(p+1);let e=arr.slice(0,p).reduce((a,b)=>a+b,0)/p;for(let i=p;i<arr.length;i++)e=arr[i]*k+e*(1-k);return e};
+    const macd=ema(closes,12)-ema(closes,26);
+    if(macd>0){score+=1;signals.push({text:'🔀 Impulso ✓',type:'good'})}else{score-=1;signals.push({text:'🔀 Impulso ✗',type:'bad'})}
+  }
+  const recent=closes.slice(-5);let upD=0;
+  for(let i=1;i<recent.length;i++){if(recent[i]>recent[i-1])upD++}
+  if(upD>=4){score+=1;signals.push({text:'Racha ↑',type:'good'})}
+  else if(upD<=1){score-=1;signals.push({text:'Racha ↓',type:'bad'})}
+  const mc=((price-closes[0])/closes[0])*100;
+  if(mc>3){score+=1;signals.push({text:`Mes: +${mc.toFixed(1)}%`,type:'good'})}
+  else if(mc<-3){score-=1;signals.push({text:`Mes: ${mc.toFixed(1)}%`,type:'bad'})}
+  else signals.push({text:`Mes: ${mc>0?'+':''}${mc.toFixed(1)}%`,type:'meh'});
+  const zones=calcZones(data);
+  let signal,verdict;
+  if(score>=3){signal='buy';verdict='Los números dicen que va para arriba con fuerza. Buen momento para entrar.'}
+  else if(score<=-3){signal='sell';verdict='Se ve que va para abajo. Si ya tienes, considera vender.'}
+  else if(score>0){signal='buy';verdict='Va ligeramente para arriba, pero sin mucha fuerza. Podrías esperar mejor precio.'}
+  else if(score<0){signal='sell';verdict='Va ligeramente para abajo. No es el mejor momento para comprar.'}
+  else{signal='wait';verdict='No se decide. Los indicadores están divididos. Mejor no hacer nada.'}
+  return{signal,verdict,reasons:signals,dailyChange,price,zones,rsi};
+}
+
+function fp(p){if(p>=10000)return '$'+p.toLocaleString('en-US',{maximumFractionDigits:0});if(p>=100)return '$'+p.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});return '$'+p.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function pct(price,t){const p=((t-price)/price)*100;return p>=0?`+${p.toFixed(1)}%`:`${p.toFixed(1)}%`}
+function tip(text){return `<span class="tip-trigger" onclick="event.stopPropagation();toggleTip(this)">?<span class="tip-bubble">${text}</span></span>`}
+
+function thermoHTML(rsi){
+  if(rsi===null)return '';
+  const fill=Math.min(Math.max(rsi,0),100);
+  let cls,emoji,word,wcls;
+  if(rsi<30){cls='cold';emoji='🥶';word='Nadie compra';wcls='cold-t'}
+  else if(rsi<50){cls='normal';emoji='😎';word='Ni fu ni fa';wcls='normal-t'}
+  else if(rsi<70){cls='warm';emoji='🙂';word='Están comprando';wcls='warm-t'}
+  else{cls='hot';emoji='🔥';word='Todos compraron';wcls='hot-t'}
+  return `<div class="thermo-row">
+    <span class="thermo-label">🌡️${tip('¿Cuánta gente está comprando? 🥶 Nadie = oportunidad. 🔥 Todos = cuidado, puede caer. Técnico: RSI.')}</span>
+    <div class="thermo-container"><div class="thermo-fill ${cls}" style="width:${fill}%"></div></div>
+    <span class="thermo-val">${rsi.toFixed(0)}</span>
+    <span class="thermo-emoji">${emoji}</span>
+    <span class="thermo-word ${wcls}">${word}</span>
+  </div>`;
+}
+
+function renderCard(asset,a){
+  const cs=a.dailyChange>=0?`+${a.dailyChange.toFixed(2)}%`:`${a.dailyChange.toFixed(2)}%`;
+  const cc=a.dailyChange>=0?'up':'down';
+  const inds=a.reasons.filter(r=>!r.text.startsWith('🌡️')).map(r=>`<span class="ind-tag ${r.type}">${r.text}</span>`).join('');
+  const bm={buy:{cls:'buy-badge',txt:'🟢 ¡COMPRA!'},sell:{cls:'sell-badge',txt:'🔴 ¡NO COMPRES! (VA PARA ABAJO)'},wait:{cls:'wait-badge',txt:'🟡 ¡ESPERA!'}};
+  const badge=bm[a.signal];
+  let zh='';
+  if(a.zones){const z=a.zones;zh=`<div class="trading-zones">
+    <div class="zone long"><div class="zone-label">🛒 Precio para comprar${tip('Si crees que va a subir, este es buen precio para entrar. Técnico: Zona Long.')}</div><div class="zone-value">${fp(z.buy)}</div><div class="zone-sub">${pct(a.price,z.buy)} del actual</div></div>
+    <div class="zone short"><div class="zone-label">📉 Precio para ir en contra${tip('Si crees que va a bajar, aquí entras "en contra". Técnico: Zona Short.')}</div><div class="zone-value">${fp(z.short)}</div><div class="zone-sub">${pct(a.price,z.short)} del actual</div></div>
+    <div class="zone tp"><div class="zone-label">💰 Take Profit${tip('Aquí cobras tu ganancia. Cuando llegue, ¡vende y festeja! 🎉 Técnico: Target.')}</div><div class="zone-value">${fp(z.bull?z.tpLong:z.tpShort)}</div><div class="zone-sub">${pct(a.price,z.bull?z.tpLong:z.tpShort)} potencial</div></div>
+    <div class="zone stop"><div class="zone-label">🛑 Salte aquí si va mal${tip('Si llega aquí, sal. Perderás poquito pero te protege de perder MUCHO. Técnico: Stop Loss.')}</div><div class="zone-value">${fp(z.bull?z.slLong:z.slShort)}</div><div class="zone-sub">${pct(a.price,z.bull?z.slLong:z.slShort)} riesgo</div></div>
+  </div>`}
+  return `<div class="card ${a.signal}">
+    <div class="card-header"><div class="signal-emoji">${asset.emoji}</div><div class="info"><div class="name">${asset.name}</div><div class="ticker">${asset.symbol}</div></div><div class="price-block"><div class="price">${fp(a.price)}</div><div class="change ${cc}">${cs}</div></div></div>
+    <span class="signal-badge ${badge.cls}">${badge.txt}</span>
+    <div class="verdict-line">${a.verdict}</div>
+    ${thermoHTML(a.rsi)}${zh}
+    <div class="indicators">${inds}</div>
+  </div>`;
+}
+
+function renderError(asset,err){
+  return `<div class="card wait"><div class="card-header"><div class="signal-emoji">${asset.emoji}</div><div class="info"><div class="name">${asset.name}</div><div class="ticker">${asset.symbol}</div></div></div><span class="signal-badge wait-badge">⚠️ Error</span><div class="verdict-line">No se pudo cargar: ${err||'error de conexión'}</div></div>`;
+}
+
+// === PARALLEL LOADING + AUTO-UPDATE ===
+let isLoading = false;
+let countdownInterval = null;
+let nextUpdateIn = 300; // 5 min in seconds
+const AUTO_UPDATE_SECONDS = 300;
+
+async function loadAll(showFullLoader){
+  if(isLoading)return;
+  isLoading=true;
+  const container=document.getElementById('cards'),btn=document.getElementById('refreshBtn');
+  btn.disabled=true;btn.textContent='⏳ Cargando...';
+
+  if(showFullLoader) container.innerHTML='<div class="loading"><div class="spinner"></div><br>Consultando mercados...</div>';
+
+  // Parallel fetch all assets
+  const promises = ASSETS.map(async (asset) => {
+    try {
+      const data = await fetchQuote(asset.symbol);
+      return { asset, html: renderCard(asset, analyze(data)) };
+    } catch(e) {
+      console.error(`Error ${asset.symbol}:`, e);
+      return { asset, html: renderError(asset, e.message) };
+    }
+  });
+
+  const results = await Promise.all(promises);
+  container.innerHTML = results.map(r => r.html).join('');
+
+  document.getElementById('updateTime').textContent = `Última actualización: ${new Date().toLocaleTimeString('es-MX')}`;
+  btn.disabled=false;btn.textContent='🔄 Actualizar';
+  isLoading=false;
+
+  // Reset countdown
+  nextUpdateIn = AUTO_UPDATE_SECONDS;
+  startCountdown();
+}
+
+function startCountdown(){
+  if(countdownInterval) clearInterval(countdownInterval);
+  const cdEl = document.getElementById('countdown');
+  countdownInterval = setInterval(()=>{
+    nextUpdateIn--;
+    if(nextUpdateIn <= 0){
+      clearInterval(countdownInterval);
+      loadAll(false); // silent update
+      return;
+    }
+    const min = Math.floor(nextUpdateIn/60);
+    const sec = nextUpdateIn%60;
+    cdEl.textContent = `⏱️ Próxima actualización en ${min}:${sec.toString().padStart(2,'0')}`;
+  }, 1000);
+}
+
+function manualRefresh(){
+  if(countdownInterval) clearInterval(countdownInterval);
+  loadAll(true);
+}
+
+// Initial load
+loadAll(true);
+</script>
+</body>
+</html>
