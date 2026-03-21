@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración – EquityBook</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+
+        :root {
+            --bg:      #0a0a0f;
+            --surface: #13131f;
+            --border:  #1e1e30;
+            --text:    #f0f0f5;
+            --muted:   #7777aa;
+            --blue:    #4fc3f7;
+            --purple:  #7c4dff;
+        }
+
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* ── Nav ─────────────────────────────────────── */
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 32px;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: rgba(10,10,15,0.88);
+            backdrop-filter: blur(12px);
+            z-index: 100;
+        }
+        nav .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        nav .logo img { width:32px; height:32px; border-radius:8px; }
+        nav .nav-links { display:flex; gap:24px; }
+        nav .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color .2s;
+        }
+        nav .nav-links a:hover { color: var(--text); }
+        nav .nav-links a.active { color: var(--blue); }
+
+        /* ── Hero ────────────────────────────────────── */
+        .hero {
+            text-align: center;
+            padding: 72px 24px 48px;
+        }
+        .hero-eyebrow {
+            display: inline-block;
+            background: rgba(124,77,255,0.1);
+            border: 1px solid rgba(124,77,255,0.25);
+            color: var(--purple);
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 5px 14px;
+            border-radius: 50px;
+            margin-bottom: 22px;
+        }
+        .hero h1 {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1.2;
+            background: linear-gradient(135deg, #f0f0f5 30%, #7c4dff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            max-width: 640px;
+            margin: 0 auto;
+        }
+        .hero p {
+            margin-top: 16px;
+            color: var(--muted);
+            font-size: 1rem;
+            line-height: 1.7;
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ── Screens section ─────────────────────────── */
+        .screens {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px 80px;
+        }
+
+        .screen-block {
+            display: flex;
+            gap: 48px;
+            align-items: flex-start;
+            margin-bottom: 80px;
+            padding-bottom: 80px;
+            border-bottom: 1px solid var(--border);
+        }
+        .screen-block:last-child {
+            border-bottom: none;
+        }
+        .screen-block.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .screen-img {
+            flex: 0 0 auto;
+            width: 240px;
+        }
+        .screen-img img {
+            width: 100%;
+            border-radius: 36px;
+            box-shadow:
+                0 0 0 2px #3a3a3c,
+                0 30px 60px rgba(0,0,0,.7),
+                0 0 60px rgba(124,77,255,.1);
+        }
+
+        .screen-info {
+            flex: 1;
+            padding-top: 16px;
+        }
+        .screen-num {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--purple);
+            margin-bottom: 10px;
+        }
+        .screen-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 14px;
+        }
+        .screen-desc {
+            color: var(--muted);
+            font-size: 0.95rem;
+            line-height: 1.75;
+            margin-bottom: 24px;
+        }
+
+        .feature-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .feature-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: #c0c0d8;
+            line-height: 1.5;
+        }
+        .feature-list li::before {
+            content: '';
+            flex: 0 0 6px;
+            height: 6px;
+            background: var(--purple);
+            border-radius: 50%;
+            margin-top: 7px;
+        }
+
+        .highlight-box {
+            margin-top: 24px;
+            background: rgba(124,77,255,0.08);
+            border: 1px solid rgba(124,77,255,0.2);
+            border-radius: 12px;
+            padding: 14px 18px;
+            font-size: 0.85rem;
+            color: #a088dd;
+            line-height: 1.6;
+        }
+
+        /* ── CTA ─────────────────────────────────────── */
+        .cta {
+            text-align: center;
+            padding: 64px 24px;
+            border-top: 1px solid var(--border);
+        }
+        .cta h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 10px;
+        }
+        .cta p { color: var(--muted); margin-bottom: 28px; }
+        .cta-btn {
+            display: inline-block;
+            background: var(--purple);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 14px 32px;
+            border-radius: 50px;
+            margin-right: 12px;
+        }
+        .cta-btn.outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--muted);
+        }
+
+        /* ── Footer ──────────────────────────────────── */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 32px 24px;
+            text-align: center;
+            color: #444466;
+            font-size: 0.85rem;
+        }
+        footer a { color: var(--purple); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        /* ── Responsive ──────────────────────────────── */
+        @media (max-width: 640px) {
+            nav .nav-links { display: none; }
+            .screen-block, .screen-block.reverse {
+                flex-direction: column;
+                align-items: center;
+            }
+            .screen-img { width: 200px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── Nav ──────────────────────────────────────────────── -->
+<nav>
+    <a href="index.html" class="logo">
+        <img src="AppIcon.png" alt="EquityBook">
+        EquityBook
+    </a>
+    <div class="nav-links">
+        <a href="index.html">Inicio</a>
+        <a href="manual.html">Guía</a>
+        <a href="settingshome.html" class="active">Configuración</a>
+        <a href="support.html">Soporte</a>
+        <a href="privacy.html">Privacidad</a>
+    </div>
+</nav>
+
+<!-- ── Hero ─────────────────────────────────────────────── -->
+<div class="hero">
+    <span class="hero-eyebrow">⚙️ Configuración del HomeView</span>
+    <h1>Adapta EquityBook<br>a tu estilo de inversión</h1>
+    <p>
+        Desde el panel de configuración personalizas cómo se muestra tu información,
+        qué moneda usas como referencia y cómo protege tu privacidad la app.
+        Tres pantallas, infinitas posibilidades.
+    </p>
+</div>
+
+<!-- ── Screens ───────────────────────────────────────────── -->
+<div class="screens">
+
+    <!-- Pantalla 1 -->
+    <div class="screen-block">
+        <div class="screen-img">
+            <img src="img/settings-1.png" alt="Configuración — pantalla 1">
+        </div>
+        <div class="screen-info">
+            <div class="screen-num">Configuración · 01</div>
+            <div class="screen-title">Tu identidad y tipo de cambio</div>
+            <p class="screen-desc">
+                El punto de partida: dile a EquityBook quién eres y con qué tipo de cambio
+                quieres trabajar. Toda la app usa esta referencia para convertir tus activos
+                en dólares a pesos mexicanos — y mostrarte tu patrimonio neto en una sola cifra.
+            </p>
+            <ul class="feature-list">
+                <li>Nombre personalizado que aparece en el saludo del HomeView</li>
+                <li>Tipo de cambio MXN/USD editable en cualquier momento</li>
+                <li>La conversión se aplica en tiempo real a todo el portafolio</li>
+                <li>Activa o desactiva Face ID / Touch ID para proteger el acceso</li>
+            </ul>
+            <div class="highlight-box">
+                💡 Actualizar el tipo de cambio manualmente te da control total: puedes
+                usar el oficial, el interbancario o el que mejor refleje tu realidad financiera.
+            </div>
+        </div>
+    </div>
+
+    <!-- Pantalla 2 -->
+    <div class="screen-block reverse">
+        <div class="screen-img">
+            <img src="img/settings-2.png" alt="Configuración — pantalla 2">
+        </div>
+        <div class="screen-info">
+            <div class="screen-num">Configuración · 02</div>
+            <div class="screen-title">Backup, restauración y control de datos</div>
+            <p class="screen-desc">
+                Tu información es tuya — y está 100% en tu dispositivo. Desde aquí puedes
+                exportar un respaldo completo en JSON, restaurarlo cuando quieras, o limpiar
+                datos de secciones específicas sin afectar el resto.
+            </p>
+            <ul class="feature-list">
+                <li>Exportar backup completo con un toque (JSON legible)</li>
+                <li>Restaurar desde un archivo guardado en Files o iCloud</li>
+                <li>Limpiar datos por módulo: stocks, deudas, gastos, etc.</li>
+                <li>Sin servidores externos — todo queda en tu iPhone</li>
+            </ul>
+            <div class="highlight-box">
+                💡 El archivo de backup es portable: puedes compartirlo entre dispositivos,
+                guardarlo en iCloud o enviarlo por correo para tener una copia de seguridad offsite.
+            </div>
+        </div>
+    </div>
+
+    <!-- Pantalla 3 -->
+    <div class="screen-block">
+        <div class="screen-img">
+            <img src="img/settings-3.png" alt="Configuración — pantalla 3">
+        </div>
+        <div class="screen-info">
+            <div class="screen-num">Configuración · 03</div>
+            <div class="screen-title">Brokers, comisiones y preferencias avanzadas</div>
+            <p class="screen-desc">
+                Configura cada broker con su estructura de comisiones real — porcentaje,
+                fijo por acción o fijo por operación — para que el cálculo de ganancia neta
+                sea exacto y no aproximado.
+            </p>
+            <ul class="feature-list">
+                <li>Alta de brokers con nombre, tipo de comisión y tasa fiscal</li>
+                <li>Comisión mínima, máxima y límite mensual sin cargo</li>
+                <li>Compatibilidad con GBM, IBKR, XTB y cualquier plataforma</li>
+                <li>Los datos de comisión se usan en cada cálculo de rendimiento</li>
+            </ul>
+            <div class="highlight-box">
+                💡 Una comisión mal configurada puede hacer que creas que ganaste cuando
+                en realidad perdiste. EquityBook deduce las comisiones reales de cada operación
+                para que veas tu ganancia neta, no bruta.
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ── CTA ───────────────────────────────────────────────── -->
+<div class="cta">
+    <h2>Configura una vez, invierte siempre</h2>
+    <p>5 minutos de configuración inicial · Datos que duran años</p>
+    <a href="manual.html" class="cta-btn outline">← Volver a la Guía</a>
+    <a href="https://apps.apple.com/app/equitybook/id6759857982" target="_blank" class="cta-btn">
+        Descargar EquityBook
+    </a>
+</div>
+
+<!-- ── Footer ───────────────────────────────────────────── -->
+<footer>
+    <p>¿Preguntas o sugerencias? <a href="support.html">Soporte</a> · <a href="mailto:carlosfisico@gmail.com">carlosfisico@gmail.com</a></p>
+    <p style="margin-top:8px;">© 2026 EquityBook · <a href="privacy.html">Aviso de Privacidad</a></p>
+</footer>
+
+</body>
+</html>

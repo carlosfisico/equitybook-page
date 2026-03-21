@@ -652,6 +652,7 @@
     <div class="nav-links">
         <a href="index.html">Inicio</a>
         <a href="manual.html" class="active">Guía</a>
+        <a href="settingshome.html">Configuración</a>
         <a href="support.html">Soporte</a>
         <a href="privacy.html">Privacidad</a>
     </div>
@@ -667,17 +668,26 @@
         Aquí te mostramos qué hace cada sección — y por qué importa.
     </p>
 
-    <!-- GIF animado del HomeView (toggle privacidad) -->
-    <div class="phone-wrap" style="width:320px; margin-top:48px;">
-        <img
-            src="homeview-toggle.gif"
-            alt="EquityBook HomeView — modo privacidad y montos visibles"
-            style="width:100%; border-radius:44px; box-shadow: 0 0 0 2px #3a3a3c, 0 40px 80px rgba(0,0,0,.8), 0 0 120px rgba(124,77,255,.15);"
-            loading="lazy"
-        >
-        <p style="text-align:center; margin-top:14px; font-size:0.78rem; color:#555577; letter-spacing:.03em;">
-            👁 Toca el ojo para alternar el modo privacidad
-        </p>
+    <!-- HomeView: dos estados reales -->
+    <div style="display:flex; gap:24px; justify-content:center; margin-top:48px; flex-wrap:wrap;">
+        <div style="text-align:center;">
+            <img
+                src="img/homeview-visible.png"
+                alt="HomeView con montos visibles"
+                style="width:220px; border-radius:36px; box-shadow: 0 0 0 2px #3a3a3c, 0 30px 60px rgba(0,0,0,.8), 0 0 80px rgba(124,77,255,.15);"
+                loading="lazy"
+            >
+            <p style="margin-top:10px; font-size:0.75rem; color:#555577;">👁 Montos visibles</p>
+        </div>
+        <div style="text-align:center;">
+            <img
+                src="img/homeview-oculto.png"
+                alt="HomeView con montos ocultos — modo privacidad"
+                style="width:220px; border-radius:36px; box-shadow: 0 0 0 2px #3a3a3c, 0 30px 60px rgba(0,0,0,.8), 0 0 80px rgba(124,77,255,.15);"
+                loading="lazy"
+            >
+            <p style="margin-top:10px; font-size:0.75rem; color:#555577;">🙈 Modo privacidad</p>
+        </div>
     </div>
 
     <div style="margin-top:40px;" class="hero-cta">
@@ -697,6 +707,16 @@
         barra de progreso.
     </p>
     <div class="divider"></div>
+
+    <!-- Link a Settings -->
+    <div style="margin-bottom:32px; display:flex; align-items:center; gap:14px; background:rgba(124,77,255,0.08); border:1px solid rgba(124,77,255,0.2); border-radius:14px; padding:18px 22px;">
+        <span style="font-size:1.6rem;">⚙️</span>
+        <div>
+            <div style="font-weight:700; color:#f0f0f5; font-size:0.97rem;">¿Qué puedes configurar en EquityBook?</div>
+            <div style="font-size:0.85rem; color:#7777aa; margin-top:3px;">Tipo de cambio, nombre, seguridad y más — todo desde el panel de configuración.</div>
+        </div>
+        <a href="settingshome.html" style="margin-left:auto; white-space:nowrap; background:var(--purple); color:#fff; text-decoration:none; font-size:0.82rem; font-weight:600; padding:8px 18px; border-radius:50px;">Ver configuración →</a>
+    </div>
 
     <!-- Patrimonio banner -->
     <div class="patrimonio-banner">
