@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Configuración – EquityBook</title>
+    <title>Configuración del HomeView – EquityBook</title>
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
 
@@ -61,7 +61,7 @@
         /* ── Hero ────────────────────────────────────── */
         .hero {
             text-align: center;
-            padding: 72px 24px 48px;
+            padding: 72px 24px 56px;
         }
         .hero-eyebrow {
             display: inline-block;
@@ -92,76 +92,83 @@
             color: var(--muted);
             font-size: 1rem;
             line-height: 1.7;
-            max-width: 520px;
+            max-width: 540px;
             margin-left: auto;
             margin-right: auto;
         }
-
-        /* ── Screens section ─────────────────────────── */
-        .screens {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 24px 80px;
+        .summary-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 32px;
+        }
+        .pill {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            padding: 7px 16px;
+            font-size: 0.82rem;
+            color: #c0c0d8;
+            display: flex;
+            align-items: center;
+            gap: 7px;
         }
 
+        /* ── Screens ─────────────────────────────────── */
+        .screens {
+            max-width: 1060px;
+            margin: 0 auto;
+            padding: 16px 24px 80px;
+        }
         .screen-block {
             display: flex;
-            gap: 48px;
+            gap: 52px;
             align-items: flex-start;
-            margin-bottom: 80px;
-            padding-bottom: 80px;
+            margin-bottom: 72px;
+            padding-bottom: 72px;
             border-bottom: 1px solid var(--border);
         }
-        .screen-block:last-child {
-            border-bottom: none;
-        }
-        .screen-block.reverse {
-            flex-direction: row-reverse;
-        }
+        .screen-block:last-child { border-bottom: none; margin-bottom: 0; }
+        .screen-block.reverse { flex-direction: row-reverse; }
 
-        .screen-img {
-            flex: 0 0 auto;
-            width: 240px;
-        }
+        .screen-img { flex: 0 0 220px; }
         .screen-img img {
             width: 100%;
             border-radius: 36px;
             box-shadow:
                 0 0 0 2px #3a3a3c,
                 0 30px 60px rgba(0,0,0,.7),
-                0 0 60px rgba(124,77,255,.1);
+                0 0 60px rgba(124,77,255,.12);
         }
 
-        .screen-info {
-            flex: 1;
-            padding-top: 16px;
-        }
+        .screen-info { flex: 1; padding-top: 12px; }
         .screen-num {
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             font-weight: 700;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
             color: var(--purple);
             margin-bottom: 10px;
         }
         .screen-title {
-            font-size: 1.5rem;
+            font-size: 1.45rem;
             font-weight: 800;
             letter-spacing: -0.5px;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
         }
         .screen-desc {
             color: var(--muted);
-            font-size: 0.95rem;
+            font-size: 0.93rem;
             line-height: 1.75;
-            margin-bottom: 24px;
+            margin-bottom: 22px;
         }
-
         .feature-list {
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 11px;
+            margin-bottom: 22px;
         }
         .feature-list li {
             display: flex;
@@ -171,24 +178,21 @@
             color: #c0c0d8;
             line-height: 1.5;
         }
-        .feature-list li::before {
-            content: '';
+        .feature-list li .dot {
             flex: 0 0 6px;
             height: 6px;
             background: var(--purple);
             border-radius: 50%;
             margin-top: 7px;
         }
-
         .highlight-box {
-            margin-top: 24px;
             background: rgba(124,77,255,0.08);
             border: 1px solid rgba(124,77,255,0.2);
             border-radius: 12px;
             padding: 14px 18px;
             font-size: 0.85rem;
             color: #a088dd;
-            line-height: 1.6;
+            line-height: 1.65;
         }
 
         /* ── CTA ─────────────────────────────────────── */
@@ -197,29 +201,18 @@
             padding: 64px 24px;
             border-top: 1px solid var(--border);
         }
-        .cta h2 {
-            font-size: 1.8rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            margin-bottom: 10px;
-        }
+        .cta h2 { font-size: 1.7rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 10px; }
         .cta p { color: var(--muted); margin-bottom: 28px; }
-        .cta-btn {
+        .btn {
             display: inline-block;
-            background: var(--purple);
-            color: #fff;
             text-decoration: none;
             font-weight: 700;
-            font-size: 0.95rem;
-            padding: 14px 32px;
+            font-size: 0.92rem;
+            padding: 13px 28px;
             border-radius: 50px;
-            margin-right: 12px;
         }
-        .cta-btn.outline {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--muted);
-        }
+        .btn-primary { background: var(--purple); color: #fff; margin-right: 10px; }
+        .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--muted); }
 
         /* ── Footer ──────────────────────────────────── */
         footer {
@@ -232,20 +225,15 @@
         footer a { color: var(--purple); text-decoration: none; }
         footer a:hover { text-decoration: underline; }
 
-        /* ── Responsive ──────────────────────────────── */
         @media (max-width: 640px) {
             nav .nav-links { display: none; }
-            .screen-block, .screen-block.reverse {
-                flex-direction: column;
-                align-items: center;
-            }
-            .screen-img { width: 200px; }
+            .screen-block, .screen-block.reverse { flex-direction: column; align-items: center; }
+            .screen-img { flex: none; width: 200px; }
         }
     </style>
 </head>
 <body>
 
-<!-- ── Nav ──────────────────────────────────────────────── -->
 <nav>
     <a href="index.html" class="logo">
         <img src="AppIcon.png" alt="EquityBook">
@@ -260,112 +248,141 @@
     </div>
 </nav>
 
-<!-- ── Hero ─────────────────────────────────────────────── -->
 <div class="hero">
     <span class="hero-eyebrow">⚙️ Configuración del HomeView</span>
-    <h1>Adapta EquityBook<br>a tu estilo de inversión</h1>
+    <h1>Tu tablero financiero,<br>a tu medida</h1>
     <p>
-        Desde el panel de configuración personalizas cómo se muestra tu información,
-        qué moneda usas como referencia y cómo protege tu privacidad la app.
-        Tres pantallas, infinitas posibilidades.
+        EquityBook se adapta a ti, no al revés. Desde la configuración del HomeView
+        defines exactamente cómo quieres ver tu patrimonio — qué módulos aparecen,
+        en qué orden, con qué tipo de cambio y con cuánta privacidad.
     </p>
+    <div class="summary-pills">
+        <div class="pill">👤 Perfil y tipo de cambio</div>
+        <div class="pill">🧩 Módulos visibles</div>
+        <div class="pill">↕️ Orden en pantalla</div>
+        <div class="pill">💾 Backup y restauración</div>
+    </div>
 </div>
 
-<!-- ── Screens ───────────────────────────────────────────── -->
 <div class="screens">
 
-    <!-- Pantalla 1 -->
+    <!-- 01 · Perfil + tipo de cambio -->
     <div class="screen-block">
         <div class="screen-img">
-            <img src="img/settings-1.png" alt="Configuración — pantalla 1">
+            <img src="img/settings-perfil.png" alt="Perfil y tipo de cambio">
         </div>
         <div class="screen-info">
             <div class="screen-num">Configuración · 01</div>
-            <div class="screen-title">Tu identidad y tipo de cambio</div>
+            <div class="screen-title">Perfil y tipo de cambio</div>
             <p class="screen-desc">
-                El punto de partida: dile a EquityBook quién eres y con qué tipo de cambio
-                quieres trabajar. Toda la app usa esta referencia para convertir tus activos
-                en dólares a pesos mexicanos — y mostrarte tu patrimonio neto en una sola cifra.
+                El primer paso para que EquityBook hable tu idioma financiero: tu nombre
+                y el tipo de cambio de referencia. Ambos datos afectan toda la app — desde
+                el saludo personalizado en el HomeView hasta la conversión de tu portafolio
+                en dólares a pesos mexicanos en una sola cifra.
             </p>
             <ul class="feature-list">
-                <li>Nombre personalizado que aparece en el saludo del HomeView</li>
-                <li>Tipo de cambio MXN/USD editable en cualquier momento</li>
-                <li>La conversión se aplica en tiempo real a todo el portafolio</li>
-                <li>Activa o desactiva Face ID / Touch ID para proteger el acceso</li>
+                <li><div class="dot"></div>Tu nombre aparece en el saludo del HomeView cuando el modo privacidad está activo</li>
+                <li><div class="dot"></div>Define el tipo de cambio MXN/USD que mejor refleja tus operaciones reales</li>
+                <li><div class="dot"></div>Actualízalo en cualquier momento — el cambio se aplica de inmediato a todo el portafolio</li>
+                <li><div class="dot"></div>Usa el tipo oficial, el interbancario o el que uses en tus transacciones habituales</li>
             </ul>
             <div class="highlight-box">
-                💡 Actualizar el tipo de cambio manualmente te da control total: puedes
-                usar el oficial, el interbancario o el que mejor refleje tu realidad financiera.
+                💡 Un tipo de cambio mal calibrado distorsiona tu patrimonio neto total.
+                EquityBook te da control directo para que el número que ves sea el que realmente importa.
             </div>
         </div>
     </div>
 
-    <!-- Pantalla 2 -->
+    <!-- 02 · Módulos visibles -->
     <div class="screen-block reverse">
         <div class="screen-img">
-            <img src="img/settings-2.png" alt="Configuración — pantalla 2">
+            <img src="img/settings-modulos.png" alt="Módulos visibles en el HomeView">
         </div>
         <div class="screen-info">
             <div class="screen-num">Configuración · 02</div>
-            <div class="screen-title">Backup, restauración y control de datos</div>
+            <div class="screen-title">Elige qué módulos ver</div>
             <p class="screen-desc">
-                Tu información es tuya — y está 100% en tu dispositivo. Desde aquí puedes
-                exportar un respaldo completo en JSON, restaurarlo cuando quieras, o limpiar
-                datos de secciones específicas sin afectar el resto.
+                No todos los inversionistas usan todos los módulos. Activa únicamente las
+                secciones relevantes para tu situación — el HomeView se simplifica
+                automáticamente y solo muestra lo que necesitas.
             </p>
             <ul class="feature-list">
-                <li>Exportar backup completo con un toque (JSON legible)</li>
-                <li>Restaurar desde un archivo guardado en Files o iCloud</li>
-                <li>Limpiar datos por módulo: stocks, deudas, gastos, etc.</li>
-                <li>Sin servidores externos — todo queda en tu iPhone</li>
+                <li><div class="dot"></div>Activa o desactiva individualmente: Mercados, Liquidez, Deuda Privada, Deudas, Gastos y Pendientes</li>
+                <li><div class="dot"></div>Los módulos desactivados desaparecen del HomeView sin borrar sus datos</li>
+                <li><div class="dot"></div>Ideal para simplificar la app si solo inviertes en bolsa o solo llevas liquidez</li>
+                <li><div class="dot"></div>Reactiva cualquier módulo en cualquier momento sin perder información</li>
             </ul>
             <div class="highlight-box">
-                💡 El archivo de backup es portable: puedes compartirlo entre dispositivos,
-                guardarlo en iCloud o enviarlo por correo para tener una copia de seguridad offsite.
+                💡 Si no usas tarjetas de crédito, oculta Deudas. Si aún no inviertes en
+                crowdlending, oculta Deuda Privada. Tu HomeView queda limpio y enfocado
+                en lo que realmente gestionas hoy.
             </div>
         </div>
     </div>
 
-    <!-- Pantalla 3 -->
+    <!-- 03 · Orden de módulos -->
     <div class="screen-block">
         <div class="screen-img">
-            <img src="img/settings-3.png" alt="Configuración — pantalla 3">
+            <img src="img/settings-orden.png" alt="Orden de módulos en el HomeView">
         </div>
         <div class="screen-info">
             <div class="screen-num">Configuración · 03</div>
-            <div class="screen-title">Brokers, comisiones y preferencias avanzadas</div>
+            <div class="screen-title">Define el orden que mejor te funciona</div>
             <p class="screen-desc">
-                Configura cada broker con su estructura de comisiones real — porcentaje,
-                fijo por acción o fijo por operación — para que el cálculo de ganancia neta
-                sea exacto y no aproximado.
+                Arrastra los módulos para ponerlos en el orden que más te convenga.
+                Lo que revisas primero cada día debe estar primero en pantalla — sin
+                importar cómo estén configurados por defecto.
             </p>
             <ul class="feature-list">
-                <li>Alta de brokers con nombre, tipo de comisión y tasa fiscal</li>
-                <li>Comisión mínima, máxima y límite mensual sin cargo</li>
-                <li>Compatibilidad con GBM, IBKR, XTB y cualquier plataforma</li>
-                <li>Los datos de comisión se usan en cada cálculo de rendimiento</li>
+                <li><div class="dot"></div>Reordena cualquier módulo con arrastrar y soltar</li>
+                <li><div class="dot"></div>El orden se guarda automáticamente y persiste entre sesiones</li>
+                <li><div class="dot"></div>Combínalo con módulos visibles: muestra solo lo que usas, en el orden que quieres</li>
+                <li><div class="dot"></div>Pon Deudas arriba en época de cortes, Mercados al frente en días de volatilidad</li>
             </ul>
             <div class="highlight-box">
-                💡 Una comisión mal configurada puede hacer que creas que ganaste cuando
-                en realidad perdiste. EquityBook deduce las comisiones reales de cada operación
-                para que veas tu ganancia neta, no bruta.
+                💡 Un inversionista activo en bolsa puede poner Mercados primero.
+                Alguien enfocado en flujo de caja puede poner Liquidez y Gastos al frente.
+                La app se adapta a tu etapa financiera actual.
+            </div>
+        </div>
+    </div>
+
+    <!-- 04 · Backup y restauración -->
+    <div class="screen-block reverse">
+        <div class="screen-img">
+            <img src="img/settings-backup.png" alt="Backup y restauración de datos">
+        </div>
+        <div class="screen-info">
+            <div class="screen-num">Configuración · 04</div>
+            <div class="screen-title">Tus datos siempre seguros</div>
+            <p class="screen-desc">
+                Toda tu información financiera vive en tu dispositivo — sin servidores,
+                sin cuentas en la nube obligatorias. Desde aquí exportas un respaldo
+                completo o restauras desde un archivo guardado, en segundos.
+            </p>
+            <ul class="feature-list">
+                <li><div class="dot"></div>Exporta un backup completo en formato JSON con un solo toque</li>
+                <li><div class="dot"></div>Guárdalo en iCloud Drive, Files o compártelo por correo</li>
+                <li><div class="dot"></div>Restaura desde cualquier backup previo sin perder el historial</li>
+                <li><div class="dot"></div>Migra fácilmente a un nuevo iPhone usando tu propio archivo de respaldo</li>
+                <li><div class="dot"></div>Sin dependencia de servidores externos — tú controlas tus datos</li>
+            </ul>
+            <div class="highlight-box">
+                💡 Recomendamos hacer un backup después de cada semana de uso activo.
+                El archivo es tuyo: legible, portable y restaurable en cualquier momento.
             </div>
         </div>
     </div>
 
 </div>
 
-<!-- ── CTA ───────────────────────────────────────────────── -->
 <div class="cta">
     <h2>Configura una vez, invierte siempre</h2>
-    <p>5 minutos de configuración inicial · Datos que duran años</p>
-    <a href="manual.html" class="cta-btn outline">← Volver a la Guía</a>
-    <a href="https://apps.apple.com/app/equitybook/id6759857982" target="_blank" class="cta-btn">
-        Descargar EquityBook
-    </a>
+    <p>5 minutos de configuración inicial · Tus datos, en tu dispositivo</p>
+    <a href="manual.html" class="btn btn-outline">← Volver a la Guía</a>
+    <a href="https://apps.apple.com/app/equitybook/id6759857982" target="_blank" class="btn btn-primary">Descargar EquityBook</a>
 </div>
 
-<!-- ── Footer ───────────────────────────────────────────── -->
 <footer>
     <p>¿Preguntas o sugerencias? <a href="support.html">Soporte</a> · <a href="mailto:carlosfisico@gmail.com">carlosfisico@gmail.com</a></p>
     <p style="margin-top:8px;">© 2026 EquityBook · <a href="privacy.html">Aviso de Privacidad</a></p>
