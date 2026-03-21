@@ -6,83 +6,221 @@
 <title>Mercados – EquityBook</title>
 <style>
     *{margin:0;padding:0;box-sizing:border-box}
-    :root{--bg:#0a0a0f;--surface:#13131f;--border:#1e1e30;--text:#f0f0f5;--muted:#7777aa;--purple:#7c4dff;--blue:#4fc3f7}
+    :root{
+        --bg:#0a0a0f;--surface:#13131f;--border:#1e1e30;
+        --text:#f0f0f5;--muted:#7777aa;
+        --purple:#7c4dff;--blue:#4fc3f7;--accent:#5e5ce6;
+    }
     html{scroll-behavior:smooth}
     body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
-    nav{display:flex;align-items:center;justify-content:space-between;padding:20px 32px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(10,10,15,.88);backdrop-filter:blur(12px);z-index:100}
-    nav .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-weight:700;font-size:1rem}
-    nav .logo img{width:32px;height:32px;border-radius:8px}
-    nav .nav-links{display:flex;gap:24px}
-    nav .nav-links a{color:var(--muted);text-decoration:none;font-size:.9rem;transition:color .2s}
-    nav .nav-links a:hover{color:var(--text)}
-    .hero{text-align:center;padding:64px 24px 48px}
-    .eyebrow{display:inline-block;background:rgba(124,77,255,.1);border:1px solid rgba(124,77,255,.25);color:var(--purple);font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:5px 14px;border-radius:50px;margin-bottom:20px}
-    .hero h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;letter-spacing:-1px;line-height:1.2;background:linear-gradient(135deg,#f0f0f5 30%,#7c4dff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;max-width:640px;margin:0 auto}
-    .hero p{margin-top:14px;color:var(--muted);font-size:1rem;line-height:1.7;max-width:540px;margin-left:auto;margin-right:auto}
-    .content{max-width:900px;margin:0 auto;padding:0 24px 80px;display:grid;grid-template-columns:1fr 1fr;gap:32px}
-    @media(max-width:640px){.content{grid-template-columns:1fr}nav .nav-links{display:none}}
+
+    /* ── Nav ── */
+    nav{display:flex;align-items:center;justify-content:space-between;padding:18px 32px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(10,10,15,.88);backdrop-filter:blur(12px);z-index:100}
+    .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-weight:700;font-size:1rem}
+    .nav-logo img{width:32px;height:32px;border-radius:8px}
+    .nav-links{display:flex;gap:24px}
+    .nav-links a{color:var(--muted);text-decoration:none;font-size:.88rem;transition:color .2s}
+    .nav-links a:hover{color:var(--text)}
+    @media(max-width:600px){.nav-links{display:none}}
+
+    /* ── Hero ── */
+    .hero{text-align:center;padding:72px 24px 52px;max-width:700px;margin:0 auto}
+    .eyebrow{display:inline-block;background:rgba(94,92,230,.12);border:1px solid rgba(94,92,230,.3);color:#a0a0ff;font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:5px 16px;border-radius:50px;margin-bottom:22px}
+    .hero h1{font-size:clamp(1.9rem,4.5vw,3rem);font-weight:800;letter-spacing:-1px;line-height:1.15;background:linear-gradient(135deg,#f0f0f5 40%,#5e5ce6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:18px}
+    .hero p{color:var(--muted);font-size:1rem;line-height:1.75;max-width:520px;margin:0 auto}
+
+    /* ── Sección genérica ── */
+    .section{max-width:920px;margin:0 auto;padding:0 24px 72px}
+    .section-title{font-size:1.25rem;font-weight:800;color:var(--text);margin-bottom:8px}
+    .section-sub{font-size:.9rem;color:var(--muted);margin-bottom:32px;line-height:1.6}
+
+    /* ── Screenshots par (visible / oculto) ── */
+    .screens-pair{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+    .screen-item{display:flex;flex-direction:column;align-items:center;gap:12px}
+    .screen-item img{
+        width:220px;border-radius:38px;
+        box-shadow:0 0 0 2px #3a3a3c,0 32px 64px rgba(0,0,0,.85),0 0 80px rgba(94,92,230,.18);
+    }
+    .screen-caption{font-size:.75rem;color:#555577;text-align:center;max-width:200px}
+
+    /* ── Screenshot ancho (distribución) ── */
+    .screen-wide{display:flex;flex-direction:column;align-items:center;gap:14px;margin-top:48px}
+    .screen-wide img{
+        width:100%;max-width:300px;border-radius:38px;
+        box-shadow:0 0 0 2px #3a3a3c,0 32px 64px rgba(0,0,0,.85),0 0 100px rgba(94,92,230,.22);
+    }
+    .screen-wide-caption{font-size:.82rem;color:#555577;text-align:center;max-width:340px;line-height:1.6}
+
+    /* ── Barra superior ── */
+    .topbar-wrap{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:32px;margin-bottom:16px}
+    .topbar-label{font-size:.72rem;color:var(--muted);font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:18px}
+    .topbar-items{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+    .tb-item{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:16px}
+    .tb-item-icon{font-size:1.4rem;margin-bottom:8px}
+    .tb-item-name{font-weight:700;font-size:.88rem;color:var(--text);margin-bottom:5px}
+    .tb-item-desc{font-size:.8rem;color:var(--muted);line-height:1.55}
+    /* menú ··· */
+    .tb-menu{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:16px;grid-column:1/-1}
+    .tb-menu-title{font-weight:700;font-size:.88rem;color:var(--text);margin-bottom:10px}
+    .tb-menu-items{display:flex;flex-wrap:wrap;gap:10px}
+    .tb-menu-chip{background:rgba(94,92,230,.1);border:1px solid rgba(94,92,230,.22);border-radius:50px;padding:6px 14px;font-size:.8rem;color:#a0a0ff}
+
+    /* ── Operaciones + pitch ── */
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+    @media(max-width:640px){.two-col{grid-template-columns:1fr}}
     .box{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px}
-    .box h3{font-size:1rem;font-weight:700;margin-bottom:16px;color:var(--text)}
-    .ops{list-style:none;display:flex;flex-direction:column;gap:10px}
-    .ops li{display:flex;align-items:flex-start;gap:9px;font-size:.88rem;color:#c0c0d8;line-height:1.5}
-    .ops li::before{content:"";flex:0 0 6px;height:6px;border-radius:50%;margin-top:6px}
-    .pitch{font-size:.93rem;color:var(--muted);line-height:1.75;margin-bottom:18px}
-    .tip{border-radius:12px;padding:14px 16px;font-size:.84rem;line-height:1.6}
-    .cta{text-align:center;padding:56px 24px;border-top:1px solid var(--border)}
+    .box h3{font-size:.95rem;font-weight:700;margin-bottom:16px;color:var(--text)}
+    .ops-list{list-style:none;display:flex;flex-direction:column;gap:9px}
+    .ops-list li{display:flex;align-items:flex-start;gap:9px;font-size:.85rem;color:#c0c0d8;line-height:1.5}
+    .dot-accent{flex-shrink:0;width:6px;height:6px;border-radius:50%;background:var(--accent);margin-top:6px}
+    .pitch-text{font-size:.9rem;color:var(--muted);line-height:1.8;margin-bottom:18px}
+    .tip-box{border-radius:12px;padding:14px 16px;font-size:.83rem;line-height:1.6;background:rgba(94,92,230,.08);border:1px solid rgba(94,92,230,.25);color:#b0b0ff}
+
+    /* ── CTA ── */
+    .cta{text-align:center;padding:56px 24px 72px;border-top:1px solid var(--border)}
     .cta h2{font-size:1.5rem;font-weight:800;margin-bottom:8px}
     .cta p{color:var(--muted);margin-bottom:24px}
     .btn{display:inline-block;text-decoration:none;font-weight:700;font-size:.9rem;padding:12px 26px;border-radius:50px}
     .btn-back{background:transparent;border:1px solid var(--border);color:var(--muted);margin-right:10px}
-    .btn-download{background:var(--purple);color:#fff}
-    footer{border-top:1px solid var(--border);padding:28px 24px;text-align:center;color:#444466;font-size:.85rem}
-    footer a{color:var(--purple);text-decoration:none}
+    .btn-dl{background:var(--accent);color:#fff}
+
+    /* ── Footer ── */
+    footer{border-top:1px solid var(--border);padding:28px 24px;text-align:center;color:#444466;font-size:.82rem}
+    footer a{color:var(--muted);text-decoration:none}
+    footer a:hover{color:var(--text)}
 </style>
 </head>
 <body>
+
+<!-- Nav -->
 <nav>
-    <a href="index.html" class="logo">
-        <img src="AppIcon.png" alt="EquityBook">
-        EquityBook
+    <a href="index.html" class="nav-logo">
+        <img src="AppIcon.png" alt="EquityBook">EquityBook
     </a>
     <div class="nav-links">
         <a href="index.html">Inicio</a>
         <a href="manual.html">Guía</a>
         <a href="settingshome.html">Configuración</a>
         <a href="support.html">Soporte</a>
-        <a href="privacy.html">Privacidad</a>
     </div>
 </nav>
+
+<!-- Hero -->
 <div class="hero">
     <span class="eyebrow">📊 Módulo · Mercados</span>
     <h1>Tu portafolio bursátil,<br>siempre al día</h1>
-    <p>Registra, monitorea y analiza tus posiciones en acciones y ETFs de México y EE.UU. — en un solo lugar, sin hojas de cálculo.</p>
+    <p>Stocks y ETFs de México y EE.UU. agrupados por broker, con rendimiento real calculado al instante — sin abrir Excel ni cambiar de app.</p>
 </div>
-<div class="content">
-    <div class="box">
-        <h3>Operaciones disponibles</h3>
-        <ul class="ops"><li style=""><span style="flex:0 0 6px;height:6px;width:6px;border-radius:50%;background:#5e5ce6;margin-top:6px;display:inline-block;flex-shrink:0"></span>Registra compras con precio promedio ponderado automático</li>
-<li style=""><span style="flex:0 0 6px;height:6px;width:6px;border-radius:50%;background:#5e5ce6;margin-top:6px;display:inline-block;flex-shrink:0"></span>Vende parcial o totalmente y calcula ganancia/pérdida real</li>
-<li style=""><span style="flex:0 0 6px;height:6px;width:6px;border-radius:50%;background:#5e5ce6;margin-top:6px;display:inline-block;flex-shrink:0"></span>Ingresa precios actuales y ve rendimiento en tiempo real</li>
-<li style=""><span style="flex:0 0 6px;height:6px;width:6px;border-radius:50%;background:#5e5ce6;margin-top:6px;display:inline-block;flex-shrink:0"></span>Filtra por broker, moneda (MXN/USD) o tipo de activo</li>
-<li style=""><span style="flex:0 0 6px;height:6px;width:6px;border-radius:50%;background:#5e5ce6;margin-top:6px;display:inline-block;flex-shrink:0"></span>Consulta historial completo de transacciones por ticker</li>
-<li style=""><span style="flex:0 0 6px;height:6px;width:6px;border-radius:50%;background:#5e5ce6;margin-top:6px;display:inline-block;flex-shrink:0"></span>Proyecta escenarios de venta con precio objetivo</li>
-<li style=""><span style="flex:0 0 6px;height:6px;width:6px;border-radius:50%;background:#5e5ce6;margin-top:6px;display:inline-block;flex-shrink:0"></span>Administra múltiples brokers (GBM, IBKR, XTB…)</li></ul>
+
+<!-- ── Vista principal: montos visible / oculto ── -->
+<div class="section">
+    <div class="section-title">Vista de posiciones</div>
+    <div class="section-sub">
+        Todos tus activos organizados por broker. Activa el <strong style="color:#f0f0f5">modo privacidad</strong> para ocultar montos con un toque — ideal para revisar tu portafolio en público.
     </div>
-    <div class="box">
-        <h3>Por qué importa</h3>
-        <p class="pitch">El inversionista promedio tiene posiciones en 2–3 brokers distintos y pierde horas calculando su rendimiento real. Mercados unifica todo en un solo lugar y te dice exactamente cuánto ganaste o perdiste — sin abrir Excel.</p>
-        <div class="tip" style="background:#5e5ce618;border:1px solid #5e5ce644;color:#c0b0ff">💡 Soporta acciones mexicanas (BMV) y estadounidenses (NYSE/NASDAQ), así como ETFs listados en ambos mercados.</div>
+    <div class="screens-pair">
+        <div class="screen-item">
+            <img src="img/mercados-visible.png" alt="Mercados con montos visibles">
+            <p class="screen-caption">💰 Montos y rendimientos visibles por broker</p>
+        </div>
+        <div class="screen-item">
+            <img src="img/mercados-oculto.png" alt="Mercados con montos ocultos">
+            <p class="screen-caption">🙈 Modo privacidad — cifras ocultas</p>
+        </div>
+    </div>
+
+    <!-- Distribución por broker -->
+    <div class="screen-wide">
+        <div class="section-title" style="text-align:center">Distribución por broker</div>
+        <p style="font-size:.88rem;color:var(--muted);text-align:center;max-width:440px;margin:6px auto 24px;line-height:1.65">
+            Toca la ficha de resumen superior dentro de Mercados para desplegar la <strong style="color:#f0f0f5">gráfica de pastel</strong> con la distribución de tu capital entre brokers — de un vistazo sabes dónde está concentrado tu portafolio.
+        </p>
+        <img src="img/mercados-distribucion.png" alt="Distribución por broker — gráfica de pie">
+        <p class="screen-wide-caption">📊 Gráfica de distribución — aparece al tocar la tarjeta de resumen superior dentro de Mercados</p>
     </div>
 </div>
+
+<!-- ── Barra superior de Mercados ── -->
+<div class="section">
+    <div class="section-title">Barra superior — accesos rápidos</div>
+    <div class="section-sub">Dentro de Mercados tienes cuatro acciones siempre disponibles en la barra superior.</div>
+    <div class="topbar-wrap">
+        <div class="topbar-label">Botones de la barra</div>
+        <div class="topbar-items">
+            <div class="tb-item">
+                <div class="tb-item-icon">📋</div>
+                <div class="tb-item-name">Historial</div>
+                <div class="tb-item-desc">Consulta el historial completo de transacciones — compras, ventas y su resultado — ordenadas por fecha.</div>
+            </div>
+            <div class="tb-item">
+                <div class="tb-item-icon">➕</div>
+                <div class="tb-item-name">Agregar posición</div>
+                <div class="tb-item-desc">Registra una nueva compra con ticker, cantidad, precio y broker. El precio promedio ponderado se calcula automáticamente.</div>
+            </div>
+            <div class="tb-item">
+                <div class="tb-item-icon">🧮</div>
+                <div class="tb-item-name">Calculadora RPN</div>
+                <div class="tb-item-desc">Acceso directo a la calculadora RPN para hacer cálculos financieros sin salir de la sección. <a href="calculadora.html" style="color:#a0a0ff;text-decoration:none;">Ver detalle →</a></div>
+            </div>
+            <!-- Menú ··· -->
+            <div class="tb-menu">
+                <div class="tb-menu-title">··· Menú de opciones</div>
+                <div class="tb-menu-items">
+                    <div class="tb-menu-chip">👁 Ocultar / mostrar montos</div>
+                    <div class="tb-menu-chip">📂 Importar transacciones CSV</div>
+                    <div class="tb-menu-chip">⚙️ Configuración de Mercados</div>
+                </div>
+                <p style="margin-top:12px;font-size:.82rem;color:var(--muted);line-height:1.65">
+                    El menú de tres puntos agrupa las opciones adicionales: puedes ocultar o mostrar todos los montos,
+                    <strong style="color:#f0f0f5">importar transacciones desde un archivo CSV</strong>
+                    (compatible con el formato de exportación de IBKR y otros brokers) y acceder a la configuración de la sección.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ── Operaciones + Por qué importa ── -->
+<div class="section">
+    <div class="two-col">
+        <div class="box">
+            <h3>Operaciones disponibles</h3>
+            <ul class="ops-list">
+                <li><span class="dot-accent"></span>Registra compras con precio promedio ponderado automático</li>
+                <li><span class="dot-accent"></span>Vende parcial o totalmente y calcula ganancia/pérdida real</li>
+                <li><span class="dot-accent"></span>Ingresa precios actuales y ve rendimiento en tiempo real</li>
+                <li><span class="dot-accent"></span>Activos agrupados por broker con subtotales por cuenta</li>
+                <li><span class="dot-accent"></span>Consulta historial completo de transacciones por ticker</li>
+                <li><span class="dot-accent"></span>Proyecta escenarios de venta con precio objetivo</li>
+                <li><span class="dot-accent"></span>Importa transacciones desde archivo CSV</li>
+                <li><span class="dot-accent"></span>Administra múltiples brokers: GBM, IBKR, XTB y más</li>
+            </ul>
+        </div>
+        <div class="box">
+            <h3>Por qué importa</h3>
+            <p class="pitch-text">
+                El inversionista promedio tiene posiciones en 2–3 brokers distintos y pierde horas calculando su rendimiento real.
+                Mercados unifica todo en un solo lugar y te dice exactamente cuánto ganaste o perdiste — sin abrir Excel, sin exportar reportes, sin cálculos manuales.
+            </p>
+            <div class="tip-box">
+                💡 Soporta acciones mexicanas (BMV) y estadounidenses (NYSE / NASDAQ), así como ETFs listados en ambos mercados. Posiciones en MXN y USD.
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CTA -->
 <div class="cta">
     <h2>¿Listo para tomar el control?</h2>
     <p>7 días de prueba gratuita · Pago único · Sin suscripciones</p>
     <a href="manual.html" class="btn btn-back">← Volver a la Guía</a>
-    <a href="https://apps.apple.com/app/equitybook/id6759857982" target="_blank" class="btn btn-download">Descargar EquityBook</a>
+    <a href="https://apps.apple.com/app/equitybook/id6759857982" target="_blank" class="btn btn-dl">Descargar EquityBook</a>
 </div>
+
 <footer>
     <p><a href="support.html">Soporte</a> · <a href="mailto:carlosfisico@gmail.com">carlosfisico@gmail.com</a> · <a href="privacy.html">Privacidad</a></p>
     <p style="margin-top:8px">© 2026 EquityBook</p>
 </footer>
+
 </body>
 </html>
