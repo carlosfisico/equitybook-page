@@ -1092,6 +1092,9 @@
 <!-- ── Top bar explainer ─────────────────────────────────────── -->
 <div class="topbar-section">
     <h2>Barra superior — accesos rápidos</h2>
+    <p style="color:#7777aa; font-size:0.9rem; text-align:center; margin-bottom:28px; max-width:560px; margin-left:auto; margin-right:auto;">
+        Cuatro atajos siempre visibles en la barra superior — más modo privacidad, configuración y calculadora accesibles con un toque.
+    </p>
     <div class="topbar-grid">
         <div class="tb-card">
             <div class="tb-icon">🟢↑</div>
@@ -1109,36 +1112,39 @@
             <p>Lista de cosas por hacer con fecha objetivo. Ideal para dar seguimiento a pendientes de proyectos, compromisos y trámites que de otro modo se quedan en un papelito o se olvidan.</p>
         </div>
         <div class="tb-card">
-            <div class="tb-icon">👁</div>
-            <h4>Modo privacidad</h4>
-            <p>Oculta todos los montos con un toque — ideal para usar la app en público.</p>
+            <div class="tb-icon">🧮</div>
+            <h4>Calculadora RPN</h4>
+            <p>Calculadora de notación polaca inversa integrada directamente en la app. Realiza cálculos financieros sin salir de EquityBook y copia el resultado al portapapeles con un toque.</p>
         </div>
-        <div class="tb-card">
-            <div class="tb-icon">⚙️</div>
-            <h4>Configuración</h4>
-            <p>Ajusta el tipo de cambio USD/MXN, nombre de usuario y preferencias generales.</p>
+    </div>
+
+    <!-- Calculadora screenshot -->
+    <div style="margin-top:36px; display:flex; flex-direction:column; align-items:center; gap:16px;">
+        <img
+            src="img/calculadora-rpn.png"
+            alt="Calculadora RPN integrada en EquityBook"
+            style="width:220px; border-radius:36px; box-shadow: 0 0 0 2px #3a3a3c, 0 30px 60px rgba(0,0,0,.8), 0 0 80px rgba(124,77,255,.15);"
+            loading="lazy"
+        >
+        <p style="font-size:0.8rem; color:#555577; text-align:center; max-width:320px;">
+            🧮 Calculadora RPN — el resultado se copia al portapapeles directamente
+        </p>
+    </div>
+
+    <!-- Menú ··· -->
+    <div style="margin-top:36px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:20px 24px; display:flex; gap:16px; align-items:flex-start; max-width:560px; margin-left:auto; margin-right:auto;">
+        <div style="font-size:1.6rem; line-height:1;">···</div>
+        <div>
+            <div style="font-weight:700; color:#f0f0f5; font-size:0.95rem; margin-bottom:6px;">Menú de tres puntos</div>
+            <p style="font-size:0.85rem; color:#7777aa; line-height:1.7;">
+                El botón <strong style="color:#c0c0d8;">···</strong> en la esquina superior derecha agrupa el
+                <strong style="color:#c0c0d8;">👁 Modo privacidad</strong> (oculta todos los montos con un toque, ideal para usar la app en público)
+                y la <strong style="color:#c0c0d8;">⚙️ Configuración</strong> (tipo de cambio, nombre de perfil, módulos visibles y respaldo de datos).
+            </p>
         </div>
     </div>
 </div>
 
-<!-- ── Screenshots needed ────────────────────────────────────── -->
-<div class="screenshots-note">
-    <div class="screenshots-note-inner">
-        <h3>📸 Capturas de pantalla recomendadas para la siguiente etapa</h3>
-        <ul>
-            <li>HomeView con modo privacidad activado (montos ocultos)</li>
-            <li>HomeView con patrimonio visible — números reales del demo</li>
-            <li>Mercados — lista de posiciones con rendimientos en verde/rojo</li>
-            <li>Mercados — detalle de un ticker con historial de transacciones</li>
-            <li>Liquidez — lista de cuentas con rendimiento diario calculado</li>
-            <li>Deuda Privada — lista de instrumentos con estatus vigente/vencido</li>
-            <li>Deudas — lista ordenada por urgencia con barra de días restantes</li>
-            <li>Gastos — vista mensual con categorías y totales</li>
-            <li>Pendientes — lista con tareas activas y completadas</li>
-            <li>Configuración — tipo de cambio y preferencias</li>
-        </ul>
-    </div>
-</div>
 
 <!-- ── Libertad financiera ────────────────────────────────────── -->
 <div style="max-width:760px; margin:0 auto 0; padding:64px 24px;">
