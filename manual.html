@@ -702,9 +702,9 @@
     <h2>El panel de control de tu patrimonio</h2>
     <p>
         Al abrir EquityBook ves tu patrimonio neto total en MXN y USD,
-        actualizado al instante. Debajo, seis tarjetas te llevan a cada módulo
-        con un solo toque — cada una con su propio color, indicador de estado y
-        barra de progreso.
+        actualizado al instante. Debajo, hasta 10 módulos te llevan a cada área
+        de tu vida financiera con un solo toque — cada uno con su propio color,
+        indicador de estado y barra de progreso. Tú decides cuáles aparecen y en qué orden.
     </p>
     <div class="divider"></div>
 
@@ -757,6 +757,84 @@
                     loading="lazy"
                 >
                 <p style="margin-top:10px; font-size:0.75rem; color:#555577;">📊 Vista en porcentaje</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Los 10 módulos del HomeView -->
+    <div style="margin-top:48px;">
+        <h3 style="font-size:1.1rem; font-weight:700; color:#f0f0f5; margin-bottom:8px; text-align:center;">Los 10 módulos de EquityBook</h3>
+        <p style="font-size:0.87rem; color:#7777aa; text-align:center; margin-bottom:28px;">
+            Activa solo los que usas — el HomeView se adapta a tu perfil financiero.
+        </p>
+
+        <!-- Screenshots de fichas lado a lado -->
+        <div style="display:flex; gap:20px; justify-content:center; flex-wrap:wrap; margin-bottom:36px;">
+            <img
+                src="img/homeview-fichas-2.png"
+                alt="HomeView módulos — parte superior"
+                style="width:210px; border-radius:34px; box-shadow: 0 0 0 2px #3a3a3c, 0 24px 48px rgba(0,0,0,.7), 0 0 60px rgba(124,77,255,.12);"
+                loading="lazy"
+            >
+            <img
+                src="img/homeview-fichas-1.png"
+                alt="HomeView módulos — parte inferior"
+                style="width:210px; border-radius:34px; box-shadow: 0 0 0 2px #3a3a3c, 0 24px 48px rgba(0,0,0,.7), 0 0 60px rgba(124,77,255,.12);"
+                loading="lazy"
+            >
+        </div>
+
+        <!-- Grid de módulos -->
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; max-width:860px; margin:0 auto;">
+            <div style="background:rgba(94,92,230,0.08); border:1px solid rgba(94,92,230,0.2); border-radius:12px; padding:14px 16px;">
+                <div style="font-size:1.1rem; margin-bottom:4px;">📊</div>
+                <div style="font-weight:700; color:#f0f0f5; font-size:0.9rem;">Mercados</div>
+                <div style="font-size:0.8rem; color:#7777aa; margin-top:3px;">Stocks, ETF, Bonos</div>
+            </div>
+            <div style="background:rgba(48,209,88,0.08); border:1px solid rgba(48,209,88,0.2); border-radius:12px; padding:14px 16px;">
+                <div style="font-size:1.1rem; margin-bottom:4px;">💵</div>
+                <div style="font-weight:700; color:#f0f0f5; font-size:0.9rem;">Liquidez</div>
+                <div style="font-size:0.8rem; color:#7777aa; margin-top:3px;">Efectivo en banca o fintech</div>
+            </div>
+            <div style="background:rgba(10,132,255,0.08); border:1px solid rgba(10,132,255,0.2); border-radius:12px; padding:14px 16px;">
+                <div style="font-size:1.1rem; margin-bottom:4px;">📈</div>
+                <div style="font-weight:700; color:#f0f0f5; font-size:0.9rem;">Deuda Privada</div>
+                <div style="font-size:0.8rem; color:#7777aa; margin-top:3px;">Crowdlending, P2P lending</div>
+            </div>
+            <div style="background:rgba(255,69,58,0.08); border:1px solid rgba(255,69,58,0.2); border-radius:12px; padding:14px 16px;">
+                <div style="font-size:1.1rem; margin-bottom:4px;">💳</div>
+                <div style="font-weight:700; color:#f0f0f5; font-size:0.9rem;">Deudas</div>
+                <div style="font-size:0.8rem; color:#7777aa; margin-top:3px;">Escuela, TC, préstamos</div>
+            </div>
+            <div style="background:rgba(255,159,10,0.08); border:1px solid rgba(255,159,10,0.2); border-radius:12px; padding:14px 16px;">
+                <div style="font-size:1.1rem; margin-bottom:4px;">🧾</div>
+                <div style="font-weight:700; color:#f0f0f5; font-size:0.9rem;">Gastos</div>
+                <div style="font-size:0.8rem; color:#7777aa; margin-top:3px;">Comida, transporte, más...</div>
+            </div>
+            <div style="background:rgba(255,159,10,0.08); border:1px solid rgba(255,159,10,0.2); border-radius:12px; padding:14px 16px;">
+                <div style="font-size:1.1rem; margin-bottom:4px;">₿</div>
+                <div style="font-weight:700; color:#f0f0f5; font-size:0.9rem;">Criptos</div>
+                <div style="font-size:0.8rem; color:#7777aa; margin-top:3px;">Bitcoin, Ethereum, SOL...</div>
+            </div>
+            <div style="background:rgba(48,209,88,0.08); border:1px solid rgba(48,209,88,0.2); border-radius:12px; padding:14px 16px;">
+                <div style="font-size:1.1rem; margin-bottom:4px;">↙️</div>
+                <div style="font-weight:700; color:#f0f0f5; font-size:0.9rem;">Por Cobrar</div>
+                <div style="font-size:0.8rem; color:#7777aa; margin-top:3px;">Seguros, préstamos a familiares</div>
+            </div>
+            <div style="background:rgba(191,90,242,0.08); border:1px solid rgba(191,90,242,0.2); border-radius:12px; padding:14px 16px;">
+                <div style="font-size:1.1rem; margin-bottom:4px;">☑️</div>
+                <div style="font-weight:700; color:#f0f0f5; font-size:0.9rem;">Pendientes</div>
+                <div style="font-size:0.8rem; color:#7777aa; margin-top:3px;">Tareas y recordatorios financieros</div>
+            </div>
+            <div style="background:rgba(48,209,88,0.08); border:1px solid rgba(48,209,88,0.2); border-radius:12px; padding:14px 16px;">
+                <div style="font-size:1.1rem; margin-bottom:4px;">↗️</div>
+                <div style="font-weight:700; color:#f0f0f5; font-size:0.9rem;">Ingresos</div>
+                <div style="font-size:0.8rem; color:#7777aa; margin-top:3px;">Ingresos esperados y recurrentes</div>
+            </div>
+            <div style="background:rgba(94,92,230,0.08); border:1px solid rgba(94,92,230,0.2); border-radius:12px; padding:14px 16px;">
+                <div style="font-size:1.1rem; margin-bottom:4px;">%</div>
+                <div style="font-weight:700; color:#f0f0f5; font-size:0.9rem;">Renta Fija</div>
+                <div style="font-size:0.8rem; color:#7777aa; margin-top:3px;">CETES, FINSUS, KLAR...</div>
             </div>
         </div>
     </div>
