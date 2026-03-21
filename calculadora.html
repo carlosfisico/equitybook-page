@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora RPN — EquityBook</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg:      #0a0a0f;
+            --surface: #13131f;
+            --border:  #1e1e30;
+            --text:    #f0f0f5;
+            --muted:   #7777aa;
+            --purple:  #7c4dff;
+            --blue:    #4fc3f7;
+            --green:   #30d158;
+            --orange:  #ff9f0a;
+        }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* ── Nav ── */
+        nav {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 18px 32px; border-bottom: 1px solid var(--border);
+            position: sticky; top: 0;
+            background: rgba(10,10,15,0.88); backdrop-filter: blur(12px); z-index: 100;
+        }
+        .nav-logo { display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text); font-weight:700; font-size:1rem; }
+        .nav-logo img { width:32px; height:32px; border-radius:8px; }
+        .nav-back { color:var(--muted); text-decoration:none; font-size:0.88rem; transition:color .2s; display:flex; align-items:center; gap:6px; }
+        .nav-back:hover { color:var(--text); }
+
+        /* ── Hero ── */
+        .hero {
+            max-width: 860px; margin: 0 auto; padding: 72px 24px 48px;
+            text-align: center;
+        }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(124,77,255,0.12); border: 1px solid rgba(124,77,255,0.3);
+            border-radius: 50px; padding: 6px 18px; font-size: 0.82rem;
+            color: #b39ddb; margin-bottom: 24px;
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3rem); font-weight: 800;
+            letter-spacing: -1px; line-height: 1.1; margin-bottom: 20px;
+        }
+        .hero h1 span { color: var(--purple); }
+        .hero-sub {
+            font-size: 1.05rem; color: var(--muted); max-width: 520px;
+            margin: 0 auto 40px; line-height: 1.7;
+        }
+
+        /* ── Layout principal ── */
+        .main-layout {
+            max-width: 900px; margin: 0 auto; padding: 0 24px 80px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start;
+        }
+        @media (max-width: 640px) { .main-layout { grid-template-columns: 1fr; } }
+
+        /* ── Screenshot column ── */
+        .screenshot-col { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+        .screenshot-col img {
+            width: 100%; max-width: 270px;
+            border-radius: 40px;
+            box-shadow: 0 0 0 2px #3a3a3c, 0 40px 80px rgba(0,0,0,.9), 0 0 100px rgba(124,77,255,.2);
+        }
+        .screenshot-caption { font-size: 0.78rem; color: #555577; text-align: center; max-width: 240px; }
+
+        /* ── Info column ── */
+        .info-col { display: flex; flex-direction: column; gap: 28px; padding-top: 8px; }
+
+        /* ── Feature card ── */
+        .feat {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: 16px; padding: 22px 22px;
+        }
+        .feat-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+        .feat-icon { font-size: 1.4rem; }
+        .feat-title { font-weight: 700; font-size: 1rem; color: var(--text); }
+        .feat p { font-size: 0.87rem; color: var(--muted); line-height: 1.7; }
+        .feat .highlight {
+            margin-top: 12px; background: rgba(124,77,255,0.08);
+            border-left: 3px solid var(--purple);
+            border-radius: 0 8px 8px 0; padding: 10px 14px;
+            font-size: 0.83rem; color: #b39ddb; line-height: 1.6;
+        }
+
+        /* ── Stack visual ── */
+        .stack-visual {
+            background: #0d0d1a; border: 1px solid #2a2a40;
+            border-radius: 14px; padding: 18px 20px;
+            font-family: "SF Mono", "Fira Code", monospace; font-size: 0.85rem;
+        }
+        .stack-label { font-size: 0.72rem; color: #444466; margin-bottom: 10px; letter-spacing: 0.05em; text-transform: uppercase; }
+        .stack-row {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 8px 12px; border-radius: 8px; margin-bottom: 6px;
+            background: #161626; border: 1px solid #252540;
+        }
+        .stack-row.level1 { border-color: rgba(124,77,255,0.5); background: rgba(124,77,255,0.08); }
+        .stack-level { font-size: 0.72rem; color: #555577; }
+        .stack-value { color: var(--text); font-weight: 600; }
+        .stack-row.level1 .stack-value { color: #b39ddb; }
+        .stack-copy-hint {
+            display: flex; align-items: center; gap: 6px;
+            margin-top: 10px; font-size: 0.76rem; color: #555577;
+        }
+        .stack-copy-hint .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--purple); flex-shrink: 0; }
+
+        /* ── How to use ── */
+        .steps { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+        .step {
+            display: flex; gap: 12px; align-items: flex-start;
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: 12px; padding: 14px 16px;
+        }
+        .step-num {
+            background: rgba(124,77,255,0.15); color: #b39ddb;
+            width: 26px; height: 26px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.78rem; font-weight: 700; flex-shrink: 0;
+        }
+        .step-text { font-size: 0.85rem; color: var(--muted); line-height: 1.55; }
+        .step-text strong { color: var(--text); }
+
+        /* ── Ops grid ── */
+        .ops-section { max-width: 860px; margin: 0 auto; padding: 0 24px 72px; }
+        .ops-section h2 { font-size: 1.2rem; font-weight: 700; margin-bottom: 20px; text-align: center; }
+        .ops-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 10px; }
+        .op-chip {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: 10px; padding: 12px 14px; text-align: center;
+        }
+        .op-symbol { font-size: 1.3rem; font-weight: 700; color: var(--purple); display: block; margin-bottom: 4px; }
+        .op-name { font-size: 0.78rem; color: var(--muted); }
+
+        /* ── CTA ── */
+        .cta-row {
+            text-align: center; padding: 0 24px 80px;
+        }
+        .cta-row a img { height: 44px; }
+
+        /* ── Footer ── */
+        footer {
+            text-align: center; padding: 28px 24px;
+            border-top: 1px solid var(--border);
+            font-size: 0.82rem; color: var(--muted);
+        }
+        footer a { color: var(--muted); text-decoration: none; }
+        footer a:hover { color: var(--text); }
+    </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+    <a class="nav-logo" href="index.html">
+        <img src="AppIcon.png" alt="EquityBook">
+        EquityBook
+    </a>
+    <a class="nav-back" href="manual.html">← Guía de usuario</a>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+    <div class="hero-badge">🧮 Barra superior · Herramienta integrada</div>
+    <h1>Calculadora <span>RPN</span><br>sin salir de la app</h1>
+    <p class="hero-sub">
+        Notación Polaca Inversa (RPN) — la misma lógica de las calculadoras HP financieras.
+        Haz cálculos complejos directamente en EquityBook y copia el resultado al portapapeles con un toque.
+    </p>
+</div>
+
+<!-- Main layout -->
+<div class="main-layout">
+
+    <!-- Screenshot -->
+    <div class="screenshot-col">
+        <img src="img/calculadora-rpn.png" alt="Calculadora RPN en EquityBook">
+        <p class="screenshot-caption">🧮 Calculadora RPN integrada — accesible desde la barra superior en cualquier momento</p>
+    </div>
+
+    <!-- Info -->
+    <div class="info-col">
+
+        <!-- Qué es RPN -->
+        <div class="feat">
+            <div class="feat-header">
+                <span class="feat-icon">❓</span>
+                <span class="feat-title">¿Qué es la notación RPN?</span>
+            </div>
+            <p>En una calculadora tradicional escribes <em>3 + 4 =</em>. En RPN primero introduces los operandos y luego el operador: <em>3 ENTER 4 +</em>. Esto elimina los paréntesis y permite encadenar operaciones largas sin perder el hilo — igual que las legendarias calculadoras HP financieras.</p>
+            <div class="highlight">
+                💡 Los traders e ingenieros financieros llevan décadas usando RPN porque es más rápida para cálculos encadenados. Ahora la tienes integrada en tu app de portafolio.
+            </div>
+        </div>
+
+        <!-- El Stack -->
+        <div class="feat">
+            <div class="feat-header">
+                <span class="feat-icon">📚</span>
+                <span class="feat-title">El Stack — cómo funciona</span>
+            </div>
+            <p>La calculadora mantiene una pila (stack) de valores en memoria. Cada número que introduces se apila. Al aplicar una operación, trabaja sobre los dos valores superiores y coloca el resultado en el Nivel 1.</p>
+
+            <div class="stack-visual" style="margin-top:14px;">
+                <div class="stack-label">Stack — estado actual</div>
+                <div class="stack-row"><span class="stack-level">Nivel 4</span><span class="stack-value">12,500.00</span></div>
+                <div class="stack-row"><span class="stack-level">Nivel 3</span><span class="stack-value">3,200.00</span></div>
+                <div class="stack-row"><span class="stack-level">Nivel 2</span><span class="stack-value">8,750.00</span></div>
+                <div class="stack-row level1"><span class="stack-level">Nivel 1 · X</span><span class="stack-value">24,450.00</span></div>
+                <div class="stack-copy-hint">
+                    <div class="dot"></div>
+                    Toca el Nivel 1 para copiar el resultado al portapapeles
+                </div>
+            </div>
+        </div>
+
+        <!-- Copiar al clipboard -->
+        <div class="feat">
+            <div class="feat-header">
+                <span class="feat-icon">📋</span>
+                <span class="feat-title">Copia el resultado al instante</span>
+            </div>
+            <p>El valor del <strong>Nivel 1</strong> del stack siempre muestra el resultado de tu última operación. Con un toque lo copias al portapapeles y puedes pegarlo donde lo necesites — en un campo de monto, en una nota o en otra app.</p>
+        </div>
+
+    </div>
+</div>
+
+<!-- Cómo usar paso a paso -->
+<div class="ops-section">
+    <h2>Cómo hacer un cálculo en RPN</h2>
+    <ul class="steps">
+        <li class="step">
+            <div class="step-num">1</div>
+            <div class="step-text"><strong>Introduce el primer número</strong> y presiona <strong>ENTER</strong> para subirlo al stack.</div>
+        </li>
+        <li class="step">
+            <div class="step-num">2</div>
+            <div class="step-text"><strong>Introduce el segundo número</strong> (sin ENTER) y presiona el <strong>operador</strong> (+, −, ×, ÷).</div>
+        </li>
+        <li class="step">
+            <div class="step-num">3</div>
+            <div class="step-text">El resultado aparece automáticamente en el <strong>Nivel 1</strong> del stack.</div>
+        </li>
+        <li class="step">
+            <div class="step-num">4</div>
+            <div class="step-text">Puedes seguir operando — usa ese resultado como operando del siguiente cálculo <strong>sin reescribirlo</strong>.</div>
+        </li>
+        <li class="step">
+            <div class="step-num">5</div>
+            <div class="step-text">Cuando tengas el resultado final, <strong>toca el Nivel 1</strong> para copiarlo al portapapeles.</div>
+        </li>
+    </ul>
+</div>
+
+<!-- Operaciones disponibles -->
+<div class="ops-section" style="padding-top:0;">
+    <h2>Operaciones disponibles</h2>
+    <div class="ops-grid">
+        <div class="op-chip"><span class="op-symbol">+</span><span class="op-name">Suma</span></div>
+        <div class="op-chip"><span class="op-symbol">−</span><span class="op-name">Resta</span></div>
+        <div class="op-chip"><span class="op-symbol">×</span><span class="op-name">Multiplicación</span></div>
+        <div class="op-chip"><span class="op-symbol">÷</span><span class="op-name">División</span></div>
+        <div class="op-chip"><span class="op-symbol">%</span><span class="op-name">Porcentaje</span></div>
+        <div class="op-chip"><span class="op-symbol">√</span><span class="op-name">Raíz cuadrada</span></div>
+        <div class="op-chip"><span class="op-symbol">±</span><span class="op-name">Cambio de signo</span></div>
+        <div class="op-chip"><span class="op-symbol">CLR</span><span class="op-name">Limpiar stack</span></div>
+    </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-row">
+    <p style="font-size:0.9rem; color:var(--muted); margin-bottom:20px;">
+        EquityBook — todo tu patrimonio, una sola app.
+    </p>
+    <a href="https://apps.apple.com/app/equitybook/id6759857982" target="_blank">
+        <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store">
+    </a>
+</div>
+
+<!-- Footer -->
+<footer>
+    <p>© 2026 EquityBook · <a href="privacy.html">Aviso de Privacidad</a> · <a href="manual.html">Guía de usuario</a> · <a href="support.html">Soporte</a></p>
+</footer>
+
+</body>
+</html>
