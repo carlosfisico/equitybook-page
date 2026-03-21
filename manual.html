@@ -667,124 +667,18 @@
         Aquí te mostramos qué hace cada sección — y por qué importa.
     </p>
 
-    <!-- iPhone mockup con el HomeView en CSS -->
-    <div class="phone-wrap">
-        <div class="phone">
-            <div class="phone-notch"></div>
-            <div class="phone-screen">
-
-                <!-- Top bar -->
-                <div class="app-topbar">
-                    <div class="app-topbar-left">
-                        <div class="tb-btn green">↑</div>
-                        <div class="tb-btn orange">💳</div>
-                        <div class="tb-btn purple" style="font-size:11px;">☑</div>
-                    </div>
-                    <div class="app-topbar-right">
-                        <div class="tb-btn eye">👁</div>
-                        <div class="tb-btn gear">⚙</div>
-                    </div>
-                </div>
-
-                <!-- Patrimonio neto card -->
-                <div class="app-hero-card">
-                    <div class="label">Patrimonio neto</div>
-                    <div class="amount-main">MXN $1,901,359</div>
-                    <div class="amount-usd">USD $166,514</div>
-                    <div class="amount-approx">≈ MXN $4,841,996</div>
-                </div>
-
-                <!-- 2×3 grid of cards -->
-                <div class="app-grid">
-
-                    <div class="app-card card-mercados">
-                        <div class="card-header">
-                            <div class="card-title-row">
-                                <span class="card-icon">📊</span>
-                                <span class="card-title">Mercados</span>
-                            </div>
-                            <div class="card-dot" style="background:#34c759;"></div>
-                        </div>
-                        <div class="card-amount">MXN $550.8K<br>USD $136.4K</div>
-                        <div class="card-bar-bg"><div class="card-bar-fill" style="width:82%;background:#5e5ce6;"></div></div>
-                        <div class="card-sub">25 activas</div>
-                        <div class="card-chevron">›</div>
-                    </div>
-
-                    <div class="app-card card-liquidez">
-                        <div class="card-header">
-                            <div class="card-title-row">
-                                <span class="card-icon">💵</span>
-                                <span class="card-title">Liquidez</span>
-                            </div>
-                            <div class="card-dot" style="background:#34c759;"></div>
-                        </div>
-                        <div class="card-amount">MXN $648.0K<br>USD $29.9K</div>
-                        <div class="card-bar-bg"><div class="card-bar-fill" style="width:90%;background:#30d158;"></div></div>
-                        <div class="card-sub">12 cuentas</div>
-                        <div class="card-chevron">›</div>
-                    </div>
-
-                    <div class="app-card card-deudapriv">
-                        <div class="card-header">
-                            <div class="card-title-row">
-                                <span class="card-icon">📈</span>
-                                <span class="card-title">Deuda Priv.</span>
-                            </div>
-                            <div class="card-dot" style="background:#ff453a;"></div>
-                        </div>
-                        <div class="card-amount">MXN $777.9K</div>
-                        <div class="card-bar-bg"><div class="card-bar-fill" style="width:93%;background:#0a84ff;"></div></div>
-                        <div class="card-sub">40/43 vigentes</div>
-                        <div class="card-chevron">›</div>
-                    </div>
-
-                    <div class="app-card card-deudas">
-                        <div class="card-header">
-                            <div class="card-title-row">
-                                <span class="card-icon">💳</span>
-                                <span class="card-title">Deudas</span>
-                            </div>
-                            <div class="card-dot" style="background:#ff9f0a;"></div>
-                        </div>
-                        <div class="card-amount" style="color:#ff453a;">MXN -$75.3K</div>
-                        <div class="card-bar-bg"><div class="card-bar-fill" style="width:20%;background:#ff453a;"></div></div>
-                        <div class="card-sub">2/12 pagadas</div>
-                        <div class="card-chevron">›</div>
-                    </div>
-
-                    <div class="app-card card-gastos">
-                        <div class="card-header">
-                            <div class="card-title-row">
-                                <span class="card-icon">🧾</span>
-                                <span class="card-title">Gastos</span>
-                            </div>
-                            <div class="card-dot" style="background:#ff9f0a;"></div>
-                        </div>
-                        <div class="card-amount">MXN $11.6K<br><span style="font-size:9px;font-weight:400;color:#636366;">este mes</span></div>
-                        <div class="card-bar-bg"><div class="card-bar-fill" style="width:60%;background:#ff9f0a;"></div></div>
-                        <div class="card-sub">48 registros</div>
-                        <div class="card-chevron">›</div>
-                    </div>
-
-                    <div class="app-card card-pend">
-                        <div class="card-header">
-                            <div class="card-title-row">
-                                <span class="card-icon">☑️</span>
-                                <span class="card-title">Pendientes</span>
-                            </div>
-                            <div class="card-dot" style="background:#ff9f0a;"></div>
-                        </div>
-                        <div class="card-amount">8 activos</div>
-                        <div class="card-bar-bg"><div class="card-bar-fill" style="width:50%;background:#bf5af2;"></div></div>
-                        <div class="card-sub">8 activos</div>
-                        <div class="card-chevron">›</div>
-                    </div>
-
-                </div><!-- /app-grid -->
-            </div><!-- /phone-screen -->
-        </div><!-- /phone -->
-    </div><!-- /phone-wrap -->
+    <!-- GIF animado del HomeView (toggle privacidad) -->
+    <div class="phone-wrap" style="width:320px; margin-top:48px;">
+        <img
+            src="homeview-toggle.gif"
+            alt="EquityBook HomeView — modo privacidad y montos visibles"
+            style="width:100%; border-radius:44px; box-shadow: 0 0 0 2px #3a3a3c, 0 40px 80px rgba(0,0,0,.8), 0 0 120px rgba(124,77,255,.15);"
+            loading="lazy"
+        >
+        <p style="text-align:center; margin-top:14px; font-size:0.78rem; color:#555577; letter-spacing:.03em;">
+            👁 Toca el ojo para alternar el modo privacidad
+        </p>
+    </div>
 
     <div style="margin-top:40px;" class="hero-cta">
         <a href="https://apps.apple.com/app/equitybook/id6759857982" target="_blank">

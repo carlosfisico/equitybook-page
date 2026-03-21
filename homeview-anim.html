@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EquityBook HomeView Animation</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: #1a1a2e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+  }
+
+  /* ── Phone shell ───────────────────────────────────── */
+  .phone {
+    width: 320px;
+    background: #1c1c1e;
+    border-radius: 50px;
+    padding: 14px 12px 22px;
+    box-shadow:
+      0 0 0 2px #3a3a3c,
+      0 50px 100px rgba(0,0,0,.9),
+      0 0 80px rgba(124,77,255,.25);
+    position: relative;
+  }
+  .notch {
+    width: 100px;
+    height: 30px;
+    background: #1c1c1e;
+    border-radius: 0 0 20px 20px;
+    margin: 0 auto 4px;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .notch-cam { width:10px; height:10px; border-radius:50%; background:#0d0d0d; }
+  .notch-pill { width:58px; height:8px; border-radius:4px; background:#0d0d0d; }
+  .screen {
+    background: #f2f2f7;
+    border-radius: 38px;
+    overflow: hidden;
+    min-height: 560px;
+    position: relative;
+  }
+
+  /* ── Status bar ─────────────────────────────────── */
+  .status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px 4px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #1c1c1e;
+  }
+  .status-right { display:flex; align-items:center; gap:4px; font-size:11px; }
+
+  /* ── App top bar ─────────────────────────────────── */
+  .app-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 14px 8px;
+  }
+  .bar-left { display:flex; gap:7px; }
+  .bar-right { display:flex; gap:5px; }
+  .btn-icon {
+    width: 32px; height: 32px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .btn-green  { background: #34c759; color:#fff; }
+  .btn-orange { background: #ff9500; color:#fff; }
+  .btn-purple { background: #af52de; color:#fff; font-size:12px; }
+  .btn-clear  { background: transparent; }
+
+  /* ── Hero card (shared wrapper) ────────────────── */
+  .hero-card {
+    margin: 0 10px 9px;
+    background: #fff;
+    border-radius: 18px;
+    padding: 16px 18px;
+    box-shadow: 0 1px 6px rgba(0,0,0,.07);
+    min-height: 90px;
+    position: relative;
+  }
+
+  /* ── NUMBERS STATE ────────────────────────────── */
+  .state-numbers .hero-label {
+    font-size: 11px; color: #8e8e93; font-weight: 500;
+  }
+  .state-numbers .hero-main {
+    font-size: 22px; font-weight: 800; color: #1c1c1e;
+    letter-spacing: -0.5px; margin-top: 3px; line-height:1.2;
+  }
+  .state-numbers .hero-usd {
+    font-size: 16px; font-weight: 700; color: #1c1c1e;
+    letter-spacing: -0.3px; margin-top: 1px;
+  }
+  .state-numbers .hero-approx {
+    font-size: 10px; color: #8e8e93; margin-top: 3px;
+  }
+
+  /* ── PRIVACY STATE ───────────────────────────── */
+  .state-privacy .hero-greeting {
+    font-size: 11px; color: #8e8e93; font-weight: 500;
+  }
+  .state-privacy .hero-name {
+    font-size: 20px; font-weight: 800; color: #1c1c1e;
+    margin-top: 1px;
+  }
+  .state-privacy .hero-tap {
+    font-size: 10px; color: #8e8e93; margin-top: 2px; line-height:1.35;
+  }
+  .state-privacy .hero-logo {
+    position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+    font-size: 13px; font-weight: 900; color: #1c1c2e;
+    line-height: 1.1;
+    text-align: center;
+    letter-spacing: -0.3px;
+  }
+  .state-privacy .hero-logo span {
+    display: block;
+    font-size: 9px; font-weight: 500;
+    color: #636366; letter-spacing: 0.02em;
+  }
+
+  /* ── Cards grid ─────────────────────────────── */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 0 10px;
+  }
+  .card {
+    border-radius: 16px;
+    padding: 10px 10px 8px;
+    position: relative;
+    min-height: 90px;
+  }
+  .card-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:3px; }
+  .card-title-row { display:flex; align-items:center; gap:4px; }
+  .card-icon { font-size:13px; }
+  .card-name { font-size:11px; font-weight:700; color:#1c1c1e; }
+  .card-dot  { width:7px; height:7px; border-radius:50%; }
+  .dot-green  { background:#34c759; }
+  .dot-red    { background:#ff3b30; }
+  .dot-yellow { background:#ff9500; }
+
+  .card-amount { font-size:12px; font-weight:800; color:#1c1c1e; line-height:1.25; }
+  .card-amount.red { color:#ff3b30; }
+  .card-amount.privacy { color:transparent; background:#d1d1d6; border-radius:6px; user-select:none; }
+
+  .bar-bg { height:3px; background:rgba(0,0,0,.08); border-radius:2px; margin: 5px 0 4px; overflow:hidden; }
+  .bar-fill { height:100%; border-radius:2px; }
+
+  .card-sub { font-size:9px; color:#636366; }
+  .chevron  { position:absolute; bottom:7px; right:8px; font-size:9px; color:#c7c7cc; }
+
+  /* Card colors */
+  .card-mercados  { background:#eceeff; }
+  .card-liquidez  { background:#e3f9eb; }
+  .card-deudapriv { background:#ddeeff; }
+  .card-deudas    { background:#ffe8e8; }
+  .card-gastos    { background:#fff2e0; }
+  .card-pend      { background:#f3e8ff; }
+
+  /* Privacy mask on cards */
+  .privacy-mask {
+    font-size:12px; font-weight:800; color:transparent;
+    background:#d1d1d6; border-radius:6px;
+    display:inline-block; min-width:70px; height:15px;
+    margin-bottom:2px;
+  }
+
+  /* ── Two view states ─────────────────────────── */
+  .view { position: absolute; top:0; left:0; right:0; bottom:0; }
+
+  .view-numbers {
+    opacity: 1;
+    animation: toggleAnim 5s ease-in-out infinite;
+  }
+  .view-privacy {
+    opacity: 0;
+    animation: toggleAnimInv 5s ease-in-out infinite;
+  }
+
+  @keyframes toggleAnim {
+    0%   { opacity:1; }
+    40%  { opacity:1; }
+    50%  { opacity:0; }
+    90%  { opacity:0; }
+    100% { opacity:1; }
+  }
+  @keyframes toggleAnimInv {
+    0%   { opacity:0; }
+    40%  { opacity:0; }
+    50%  { opacity:1; }
+    90%  { opacity:1; }
+    100% { opacity:0; }
+  }
+
+  /* eye icon toggle */
+  .eye-open  { animation: eyeToggle 5s ease-in-out infinite; }
+  .eye-shut  { animation: eyeToggleInv 5s ease-in-out infinite; }
+  @keyframes eyeToggle    { 0%,40%{opacity:1}50%,90%{opacity:0}100%{opacity:1} }
+  @keyframes eyeToggleInv { 0%,40%{opacity:0}50%,90%{opacity:1}100%{opacity:0} }
+</style>
+</head>
+<body>
+
+<div class="phone">
+  <div class="notch">
+    <div class="notch-pill"></div>
+    <div class="notch-cam"></div>
+  </div>
+
+  <div class="screen">
+    <!-- Status bar -->
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="status-right">
+        <span>●●●●</span>
+        <span>WiFi</span>
+        <span>▐█▌</span>
+      </div>
+    </div>
+
+    <!-- Top app bar (shared) -->
+    <div class="app-bar">
+      <div class="bar-left">
+        <div class="btn-icon btn-green">↑</div>
+        <div class="btn-icon btn-orange">💳</div>
+        <div class="btn-icon btn-purple">☑</div>
+      </div>
+      <div class="bar-right">
+        <!-- Eye: open when numbers, closed when privacy -->
+        <div class="btn-icon btn-clear" style="position:relative; width:32px; height:32px;">
+          <span class="eye-open" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:17px;">👁</span>
+          <span class="eye-shut" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:17px;">🙈</span>
+        </div>
+        <div class="btn-icon btn-clear" style="font-size:17px;">⚙️</div>
+      </div>
+    </div>
+
+    <!-- Animated views container -->
+    <div style="position:relative; flex:1;">
+
+      <!-- ── VIEW: NUMBERS ──────────────────────── -->
+      <div class="view view-numbers">
+
+        <!-- Hero card: numbers -->
+        <div class="hero-card state-numbers">
+          <div class="hero-label">Patrimonio neto</div>
+          <div class="hero-main">MXN $1,901,359</div>
+          <div class="hero-usd">USD $166,514</div>
+          <div class="hero-approx">≈ MXN $4,841,996</div>
+        </div>
+
+        <!-- Cards grid: numbers visible -->
+        <div class="cards-grid">
+
+          <div class="card card-mercados">
+            <div class="card-row">
+              <div class="card-title-row"><span class="card-icon">📊</span><span class="card-name">Mercados</span></div>
+              <div class="card-dot dot-green"></div>
+            </div>
+            <div class="card-amount">MXN $550.8K<br>USD $136.4K</div>
+            <div class="bar-bg"><div class="bar-fill" style="width:82%;background:#5e5ce6;"></div></div>
+            <div class="card-sub">25 activas</div>
+            <div class="chevron">›</div>
+          </div>
+
+          <div class="card card-liquidez">
+            <div class="card-row">
+              <div class="card-title-row"><span class="card-icon">💵</span><span class="card-name">Liquidez</span></div>
+              <div class="card-dot dot-green"></div>
+            </div>
+            <div class="card-amount">MXN $648.0K<br>USD $29.9K</div>
+            <div class="bar-bg"><div class="bar-fill" style="width:90%;background:#30d158;"></div></div>
+            <div class="card-sub">12 cuentas</div>
+            <div class="chevron">›</div>
+          </div>
+
+          <div class="card card-deudapriv">
+            <div class="card-row">
+              <div class="card-title-row"><span class="card-icon">📈</span><span class="card-name">Deuda Priv.</span></div>
+              <div class="card-dot dot-red"></div>
+            </div>
+            <div class="card-amount">MXN $777.9K</div>
+            <div class="bar-bg"><div class="bar-fill" style="width:93%;background:#0a84ff;"></div></div>
+            <div class="card-sub">40/43 vigentes</div>
+            <div class="chevron">›</div>
+          </div>
+
+          <div class="card card-deudas">
+            <div class="card-row">
+              <div class="card-title-row"><span class="card-icon">💳</span><span class="card-name">Deudas</span></div>
+              <div class="card-dot dot-yellow"></div>
+            </div>
+            <div class="card-amount red">MXN -$75.3K</div>
+            <div class="bar-bg"><div class="bar-fill" style="width:20%;background:#ff453a;"></div></div>
+            <div class="card-sub">2/12 pagadas</div>
+            <div class="chevron">›</div>
+          </div>
+
+          <div class="card card-gastos">
+            <div class="card-row">
+              <div class="card-title-row"><span class="card-icon">🧾</span><span class="card-name">Gastos</span></div>
+              <div class="card-dot dot-yellow"></div>
+            </div>
+            <div class="card-amount">MXN $11.6K<br><span style="font-size:9px;font-weight:500;color:#636366;">este mes</span></div>
+            <div class="bar-bg"><div class="bar-fill" style="width:58%;background:#ff9f0a;"></div></div>
+            <div class="card-sub">48 este mes</div>
+            <div class="chevron">›</div>
+          </div>
+
+          <div class="card card-pend">
+            <div class="card-row">
+              <div class="card-title-row"><span class="card-icon">☑️</span><span class="card-name">Pendientes</span></div>
+              <div class="card-dot dot-yellow"></div>
+            </div>
+            <div class="card-amount">8 activos</div>
+            <div class="bar-bg"><div class="bar-fill" style="width:50%;background:#bf5af2;"></div></div>
+            <div class="card-sub">8 activos</div>
+            <div class="chevron">›</div>
+          </div>
+
+        </div><!-- /cards numbers -->
+      </div><!-- /view-numbers -->
+
+      <!-- ── VIEW: PRIVACY ──────────────────────── -->
+      <div class="view view-privacy">
+
+        <!-- Hero card: privacy -->
+        <div class="hero-card state-privacy">
+          <div class="hero-greeting">Buenos días</div>
+          <div class="hero-name">Hola, Darío</div>
+          <div class="hero-tap">Toca para ver<br>tu patrimonio</div>
+          <div class="hero-logo">
+            EQUITY<br><span>Book</span>
+          </div>
+        </div>
+
+        <!-- Cards grid: amounts hidden -->
+        <div class="cards-grid">
+
+          <div class="card card-mercados">
+            <div class="card-row">
+              <div class="card-title-row"><span class="card-icon">📊</span><span class="card-name">Mercados</span></div>
+              <div class="card-dot dot-green"></div>
+            </div>
+            <div class="privacy-mask" style="width:90px;"></div>
+            <div class="bar-bg"><div class="bar-fill" style="width:82%;background:#5e5ce6;"></div></div>
+            <div class="card-sub">25 activas</div>
+            <div class="chevron">›</div>
+          </div>
+
+          <div class="card card-liquidez">
+            <div class="card-row">
+              <div class="card-title-row"><span class="card-icon">💵</span><span class="card-name">Liquidez</span></div>
+              <div class="card-dot dot-green"></div>
+            </div>
+            <div class="privacy-mask" style="width:80px;"></div>
+            <div class="bar-bg"><div class="bar-fill" style="width:90%;background:#30d158;"></div></div>
+            <div class="card-sub">12 cuentas</div>
+            <div class="chevron">›</div>
+          </div>
+
+          <div class="card card-deudapriv">
+            <div class="card-row">
+              <div class="card-title-row"><span class="card-icon">📈</span><span class="card-name">Deuda Priv.</span></div>
+              <div class="card-dot dot-red"></div>
+            </div>
+            <div class="privacy-mask" style="width:85px;"></div>
+            <div class="bar-bg"><div class="bar-fill" style="width:93%;background:#0a84ff;"></div></div>
+            <div class="card-sub">40/43 vigentes</div>
+            <div class="chevron">›</div>
+          </div>
+
+          <div class="card card-deudas">
+            <div class="card-row">
+              <div class="card-title-row"><span class="card-icon">💳</span><span class="card-name">Deudas</span></div>
+              <div class="card-dot dot-yellow"></div>
+            </div>
+            <div class="privacy-mask" style="width:75px;"></div>
+            <div class="bar-bg"><div class="bar-fill" style="width:20%;background:#ff453a;"></div></div>
+            <div class="card-sub">2/12 pagadas</div>
+            <div class="chevron">›</div>
+          </div>
+
+          <div class="card card-gastos">
+            <div class="card-row">
+              <div class="card-title-row"><span class="card-icon">🧾</span><span class="card-name">Gastos</span></div>
+              <div class="card-dot dot-yellow"></div>
+            </div>
+            <div class="privacy-mask" style="width:70px;"></div>
+            <div class="bar-bg"><div class="bar-fill" style="width:58%;background:#ff9f0a;"></div></div>
+            <div class="card-sub">48 este mes</div>
+            <div class="chevron">›</div>
+          </div>
+
+          <div class="card card-pend">
+            <div class="card-row">
+              <div class="card-title-row"><span class="card-icon">☑️</span><span class="card-name">Pendientes</span></div>
+              <div class="card-dot dot-yellow"></div>
+            </div>
+            <div class="card-amount">8 activos</div>
+            <div class="bar-bg"><div class="bar-fill" style="width:50%;background:#bf5af2;"></div></div>
+            <div class="card-sub">8 activos</div>
+            <div class="chevron">›</div>
+          </div>
+
+        </div><!-- /cards privacy -->
+      </div><!-- /view-privacy -->
+
+    </div><!-- /relative -->
+  </div><!-- /screen -->
+</div><!-- /phone -->
+
+</body>
+</html>
