@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Mercados – EquityBook</title>
+<style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{--bg:#0a0a0f;--surface:#13131f;--border:#1e1e30;--text:#f0f0f5;--muted:#7777aa;--purple:#7c4dff;--blue:#4fc3f7}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+    nav{display:flex;align-items:center;justify-content:space-between;padding:20px 32px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(10,10,15,.88);backdrop-filter:blur(12px);z-index:100}
+    nav .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-weight:700;font-size:1rem}
+    nav .logo img{width:32px;height:32px;border-radius:8px}
+    nav .nav-links{display:flex;gap:24px}
+    nav .nav-links a{color:var(--muted);text-decoration:none;font-size:.9rem;transition:color .2s}
+    nav .nav-links a:hover{color:var(--text)}
+    .hero{text-align:center;padding:64px 24px 48px}
+    .eyebrow{display:inline-block;background:rgba(124,77,255,.1);border:1px solid rgba(124,77,255,.25);color:var(--purple);font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:5px 14px;border-radius:50px;margin-bottom:20px}
+    .hero h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;letter-spacing:-1px;line-height:1.2;background:linear-gradient(135deg,#f0f0f5 30%,#7c4dff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;max-width:640px;margin:0 auto}
+    .hero p{margin-top:14px;color:var(--muted);font-size:1rem;line-height:1.7;max-width:540px;margin-left:auto;margin-right:auto}
+    .content{max-width:900px;margin:0 auto;padding:0 24px 80px;display:grid;grid-template-columns:1fr 1fr;gap:32px}
+    @media(max-width:640px){.content{grid-template-columns:1fr}nav .nav-links{display:none}}
+    .box{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px}
+    .box h3{font-size:1rem;font-weight:700;margin-bottom:16px;color:var(--text)}
+    .ops{list-style:none;display:flex;flex-direction:column;gap:10px}
+    .ops li{display:flex;align-items:flex-start;gap:9px;font-size:.88rem;color:#c0c0d8;line-height:1.5}
+    .ops li::before{content:"";flex:0 0 6px;height:6px;border-radius:50%;margin-top:6px}
+    .pitch{font-size:.93rem;color:var(--muted);line-height:1.75;margin-bottom:18px}
+    .tip{border-radius:12px;padding:14px 16px;font-size:.84rem;line-height:1.6}
+    .cta{text-align:center;padding:56px 24px;border-top:1px solid var(--border)}
+    .cta h2{font-size:1.5rem;font-weight:800;margin-bottom:8px}
+    .cta p{color:var(--muted);margin-bottom:24px}
+    .btn{display:inline-block;text-decoration:none;font-weight:700;font-size:.9rem;padding:12px 26px;border-radius:50px}
+    .btn-back{background:transparent;border:1px solid var(--border);color:var(--muted);margin-right:10px}
+    .btn-download{background:var(--purple);color:#fff}
+    footer{border-top:1px solid var(--border);padding:28px 24px;text-align:center;color:#444466;font-size:.85rem}
+    footer a{color:var(--purple);text-decoration:none}
+</style>
+</head>
+<body>
+<nav>
+    <a href="index.html" class="logo">
+        <img src="AppIcon.png" alt="EquityBook">
+        EquityBook
+    </a>
+    <div class="nav-links">
+        <a href="index.html">Inicio</a>
+        <a href="manual.html">Guía</a>
+        <a href="settingshome.html">Configuración</a>
+        <a href="support.html">Soporte</a>
+        <a href="privacy.html">Privacidad</a>
+    </div>
+</nav>
+<div class="hero">
+    <span class="eyebrow">📊 Módulo · Mercados</span>
+    <h1>Tu portafolio bursátil,<br>siempre al día</h1>
+    <p>Registra, monitorea y analiza tus posiciones en acciones y ETFs de México y EE.UU. — en un solo lugar, sin hojas de cálculo.</p>
+</div>
+<div class="content">
+    <div class="box">
+        <h3>Operaciones disponibles</h3>
+        <ul class="ops"><li style=""><span style="flex:0 0 6px;height:6px;width:6px;border-radius:50%;background:#5e5ce6;margin-top:6px;display:inline-block;flex-shrink:0"></span>Registra compras con precio promedio ponderado automático</li>
+<li style=""><span style="flex:0 0 6px;height:6px;width:6px;border-radius:50%;background:#5e5ce6;margin-top:6px;display:inline-block;flex-shrink:0"></span>Vende parcial o totalmente y calcula ganancia/pérdida real</li>
+<li style=""><span style="flex:0 0 6px;height:6px;width:6px;border-radius:50%;background:#5e5ce6;margin-top:6px;display:inline-block;flex-shrink:0"></span>Ingresa precios actuales y ve rendimiento en tiempo real</li>
+<li style=""><span style="flex:0 0 6px;height:6px;width:6px;border-radius:50%;background:#5e5ce6;margin-top:6px;display:inline-block;flex-shrink:0"></span>Filtra por broker, moneda (MXN/USD) o tipo de activo</li>
+<li style=""><span style="flex:0 0 6px;height:6px;width:6px;border-radius:50%;background:#5e5ce6;margin-top:6px;display:inline-block;flex-shrink:0"></span>Consulta historial completo de transacciones por ticker</li>
+<li style=""><span style="flex:0 0 6px;height:6px;width:6px;border-radius:50%;background:#5e5ce6;margin-top:6px;display:inline-block;flex-shrink:0"></span>Proyecta escenarios de venta con precio objetivo</li>
+<li style=""><span style="flex:0 0 6px;height:6px;width:6px;border-radius:50%;background:#5e5ce6;margin-top:6px;display:inline-block;flex-shrink:0"></span>Administra múltiples brokers (GBM, IBKR, XTB…)</li></ul>
+    </div>
+    <div class="box">
+        <h3>Por qué importa</h3>
+        <p class="pitch">El inversionista promedio tiene posiciones en 2–3 brokers distintos y pierde horas calculando su rendimiento real. Mercados unifica todo en un solo lugar y te dice exactamente cuánto ganaste o perdiste — sin abrir Excel.</p>
+        <div class="tip" style="background:#5e5ce618;border:1px solid #5e5ce644;color:#c0b0ff">💡 Soporta acciones mexicanas (BMV) y estadounidenses (NYSE/NASDAQ), así como ETFs listados en ambos mercados.</div>
+    </div>
+</div>
+<div class="cta">
+    <h2>¿Listo para tomar el control?</h2>
+    <p>7 días de prueba gratuita · Pago único · Sin suscripciones</p>
+    <a href="manual.html" class="btn btn-back">← Volver a la Guía</a>
+    <a href="https://apps.apple.com/app/equitybook/id6759857982" target="_blank" class="btn btn-download">Descargar EquityBook</a>
+</div>
+<footer>
+    <p><a href="support.html">Soporte</a> · <a href="mailto:carlosfisico@gmail.com">carlosfisico@gmail.com</a> · <a href="privacy.html">Privacidad</a></p>
+    <p style="margin-top:8px">© 2026 EquityBook</p>
+</footer>
+</body>
+</html>
