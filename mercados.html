@@ -118,26 +118,31 @@
     <div class="section-sub">
         Todos tus activos organizados por broker. Activa el <strong style="color:#f0f0f5">modo privacidad</strong> para ocultar montos con un toque — ideal para revisar tu portafolio en público.
     </div>
-    <div class="screens-pair">
-        <div class="screen-item">
-            <img src="img/mercados-visible.png" alt="Mercados con montos visibles">
-            <p class="screen-caption">💰 Montos y rendimientos visibles por broker</p>
-        </div>
-        <div class="screen-item">
-            <img src="img/mercados-oculto.png" alt="Mercados con montos ocultos">
-            <p class="screen-caption">🙈 Modo privacidad — cifras ocultas</p>
-        </div>
-    </div>
 
-    <!-- Distribución por broker -->
-    <div class="screen-wide">
-        <div class="section-title" style="text-align:center">Distribución por broker</div>
-        <p style="font-size:.88rem;color:var(--muted);text-align:center;max-width:440px;margin:6px auto 24px;line-height:1.65">
-            Toca la ficha de resumen superior dentro de Mercados para desplegar la <strong style="color:#f0f0f5">gráfica de pastel</strong> con la distribución de tu capital entre brokers — de un vistazo sabes dónde está concentrado tu portafolio.
-        </p>
-        <img src="img/mercados-distribucion.png" alt="Distribución por broker — gráfica de pie">
-        <p class="screen-wide-caption">📊 Gráfica de distribución — aparece al tocar la tarjeta de resumen superior dentro de Mercados</p>
-    </div>
+    <a href="mercados-posiciones.html" style="text-decoration:none;display:block;max-width:700px;margin:0 auto">
+        <div style="background:var(--surface);border:1px solid rgba(94,92,230,.35);border-radius:20px;padding:28px 32px;cursor:pointer;position:relative">
+            <div class="screens-pair" style="margin-bottom:24px;pointer-events:none">
+                <div class="screen-item">
+                    <img src="img/mercados-visible.png" alt="Montos visibles">
+                    <p class="screen-caption">💰 Montos visibles por broker</p>
+                </div>
+                <div class="screen-item">
+                    <img src="img/mercados-oculto.png" alt="Montos ocultos">
+                    <p class="screen-caption">🙈 Modo privacidad</p>
+                </div>
+                <div class="screen-item">
+                    <img src="img/mercados-distribucion.png" alt="Distribución broker">
+                    <p class="screen-caption">🥧 Distribución por broker</p>
+                </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between">
+                <p style="font-size:.85rem;color:var(--muted);line-height:1.6;max-width:480px">
+                    📊 Agrupado por broker · Precio promedio ponderado · Modo privacidad · Gráfica de distribución
+                </p>
+                <span style="color:#a0a0ff;font-size:.88rem;font-weight:700;white-space:nowrap;margin-left:16px">Ver detalle →</span>
+            </div>
+        </div>
+    </a>
 </div>
 
 <!-- ── Barra superior de Mercados ── -->
@@ -147,11 +152,13 @@
     <div class="topbar-wrap">
         <div class="topbar-label">Botones de la barra</div>
         <div class="topbar-items">
-            <div class="tb-item">
+            <a href="mercados-historial.html" style="text-decoration:none">
+            <div class="tb-item" style="border-color:rgba(94,92,230,.35);cursor:pointer">
                 <div class="tb-item-icon">📋</div>
-                <div class="tb-item-name">Historial</div>
+                <div class="tb-item-name">Historial <span style="color:#a0a0ff;font-size:.78rem">→</span></div>
                 <div class="tb-item-desc">Consulta el historial completo de transacciones — compras, ventas y su resultado — ordenadas por fecha.</div>
             </div>
+            </a>
             <div class="tb-item">
                 <div class="tb-item-icon">➕</div>
                 <div class="tb-item-name">Agregar posición</div>

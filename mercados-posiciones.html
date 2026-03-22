@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vista de Posiciones – Mercados – EquityBook</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        :root {
+            --bg:#0a0a0f; --surface:#13131f; --border:#1e1e30;
+            --text:#f0f0f5; --muted:#7777aa;
+            --accent:#5e5ce6; --purple:#7c4dff;
+        }
+        html { scroll-behavior:smooth; }
+        body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
+
+        nav { display:flex; align-items:center; justify-content:space-between; padding:20px 32px; border-bottom:1px solid var(--border); position:sticky; top:0; background:rgba(10,10,15,.88); backdrop-filter:blur(12px); z-index:100; }
+        .logo { display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text); font-weight:700; font-size:1rem; }
+        .logo img { width:32px; height:32px; border-radius:8px; }
+        .nav-links { display:flex; gap:24px; }
+        .nav-links a { color:var(--muted); text-decoration:none; font-size:.9rem; transition:color .2s; }
+        .nav-links a:hover { color:var(--text); }
+        @media(max-width:640px){ .nav-links{display:none} }
+
+        .breadcrumb { max-width:1060px; margin:0 auto; padding:18px 24px 0; display:flex; align-items:center; gap:8px; font-size:.82rem; color:var(--muted); flex-wrap:wrap; }
+        .breadcrumb a { color:var(--muted); text-decoration:none; }
+        .breadcrumb a:hover { color:var(--text); }
+        .breadcrumb span { color:#333355; }
+
+        .hero { text-align:center; padding:60px 24px 48px; }
+        .hero-eyebrow { display:inline-block; background:rgba(94,92,230,.1); border:1px solid rgba(94,92,230,.28); color:#a0a0ff; font-size:.78rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; padding:5px 16px; border-radius:50px; margin-bottom:20px; }
+        .hero h1 { font-size:clamp(1.8rem,4vw,2.8rem); font-weight:800; letter-spacing:-1px; line-height:1.2; background:linear-gradient(135deg,#f0f0f5 30%,#5e5ce6); -webkit-background-clip:text; -webkit-text-fill-color:transparent; max-width:600px; margin:0 auto; }
+        .hero p { margin-top:16px; color:var(--muted); font-size:1rem; line-height:1.7; max-width:520px; margin-left:auto; margin-right:auto; }
+        .summary-pills { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:28px; }
+        .pill { background:rgba(255,255,255,.05); border:1px solid var(--border); border-radius:50px; padding:7px 16px; font-size:.82rem; color:#c0c0d8; }
+
+        .screens { max-width:1060px; margin:0 auto; padding:16px 24px 80px; }
+        .screen-block { display:flex; gap:52px; align-items:flex-start; margin-bottom:72px; padding-bottom:72px; border-bottom:1px solid var(--border); }
+        .screen-block:last-child { border-bottom:none; margin-bottom:0; }
+        .screen-block.reverse { flex-direction:row-reverse; }
+        .screen-img { flex:0 0 220px; }
+        .screen-img img { width:100%; border-radius:36px; box-shadow:0 0 0 2px #3a3a3c,0 30px 60px rgba(0,0,0,.7),0 0 60px rgba(94,92,230,.15); }
+        .screen-info { flex:1; padding-top:12px; }
+        .screen-num { font-size:.72rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin-bottom:10px; }
+        .screen-title { font-size:1.4rem; font-weight:800; letter-spacing:-.5px; margin-bottom:12px; }
+        .screen-desc { color:var(--muted); font-size:.93rem; line-height:1.75; margin-bottom:22px; }
+        .feature-list { list-style:none; display:flex; flex-direction:column; gap:11px; margin-bottom:22px; }
+        .feature-list li { display:flex; align-items:flex-start; gap:10px; font-size:.9rem; color:#c0c0d8; line-height:1.5; }
+        .dot { flex:0 0 6px; height:6px; background:var(--accent); border-radius:50%; margin-top:7px; }
+        .highlight-box { background:rgba(94,92,230,.08); border:1px solid rgba(94,92,230,.22); border-radius:12px; padding:14px 18px; font-size:.85rem; color:#a0a0e8; line-height:1.65; }
+
+        /* Dos imágenes lado a lado */
+        .dual-img { display:flex; gap:24px; flex:0 0 auto; flex-direction:column; align-items:center; }
+        .dual-img img { width:170px; border-radius:32px; box-shadow:0 0 0 2px #3a3a3c,0 20px 48px rgba(0,0,0,.7),0 0 48px rgba(94,92,230,.12); }
+        .dual-img span { font-size:.72rem; color:var(--muted); text-align:center; max-width:160px; }
+        .dual-wrap { display:flex; gap:20px; }
+
+        .cta { text-align:center; padding:64px 24px; border-top:1px solid var(--border); }
+        .cta h2 { font-size:1.7rem; font-weight:800; letter-spacing:-.5px; margin-bottom:10px; }
+        .cta p { color:var(--muted); margin-bottom:28px; }
+        .btn { display:inline-block; text-decoration:none; font-weight:700; font-size:.92rem; padding:13px 28px; border-radius:50px; }
+        .btn-primary { background:var(--accent); color:#fff; margin-right:10px; }
+        .btn-outline { background:transparent; border:1px solid var(--border); color:var(--muted); }
+
+        footer { border-top:1px solid var(--border); padding:32px 24px; text-align:center; color:#444466; font-size:.85rem; }
+        footer a { color:var(--muted); text-decoration:none; }
+        footer a:hover { color:var(--text); }
+
+        @media(max-width:640px){
+            .screen-block,.screen-block.reverse { flex-direction:column; align-items:center; }
+            .screen-img { flex:none; width:200px; }
+            .dual-img img { width:140px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html" class="logo"><img src="AppIcon.png" alt="EquityBook">EquityBook</a>
+    <div class="nav-links">
+        <a href="index.html">Inicio</a>
+        <a href="manual.html">Guía</a>
+        <a href="mercados.html">Mercados</a>
+        <a href="support.html">Soporte</a>
+    </div>
+</nav>
+
+<div class="breadcrumb">
+    <a href="manual.html">Guía</a><span>›</span>
+    <a href="mercados.html">Mercados</a><span>›</span>
+    Vista de posiciones
+</div>
+
+<div class="hero">
+    <span class="hero-eyebrow">📊 Mercados · Vista de posiciones</span>
+    <h1>Todo tu portafolio,<br>agrupado por broker</h1>
+    <p>Cada posición en su broker, con rendimiento actualizado, precio promedio y valor actual — en una sola pantalla, con o sin montos visibles.</p>
+    <div class="summary-pills">
+        <div class="pill">🏦 Agrupado por broker</div>
+        <div class="pill">📈 Rendimiento en tiempo real</div>
+        <div class="pill">🙈 Modo privacidad</div>
+        <div class="pill">🥧 Distribución visual</div>
+    </div>
+</div>
+
+<div class="screens">
+
+    <!-- 01 · Montos visibles y ocultos -->
+    <div class="screen-block">
+        <div class="dual-wrap">
+            <div class="dual-img">
+                <img src="img/mercados-visible.png" alt="Mercados montos visibles">
+                <span>💰 Montos y rendimientos visibles</span>
+            </div>
+            <div class="dual-img">
+                <img src="img/mercados-oculto.png" alt="Mercados montos ocultos">
+                <span>🙈 Modo privacidad activo</span>
+            </div>
+        </div>
+        <div class="screen-info">
+            <div class="screen-num">Vista de posiciones · 01</div>
+            <div class="screen-title">Posiciones agrupadas por broker</div>
+            <p class="screen-desc">
+                Cada sección de la vista corresponde a un broker. Dentro de cada uno
+                ves todas tus posiciones activas con el detalle que necesitas para
+                tomar decisiones: precio de compra, precio actual, cantidad y rendimiento.
+            </p>
+            <ul class="feature-list">
+                <li><div class="dot"></div>Agrupación automática por broker — ves de un vistazo qué tienes en cada plataforma</li>
+                <li><div class="dot"></div>Precio promedio ponderado por posición, actualizado tras cada compra adicional</li>
+                <li><div class="dot"></div>Rendimiento en valor absoluto y porcentaje — ganancia o pérdida real desde tu entrada</li>
+                <li><div class="dot"></div>Subtotal por broker: monto invertido y valor actual de cada cuenta</li>
+                <li><div class="dot"></div>Posiciones en MXN y USD conviviendo en la misma vista con su conversión</li>
+            </ul>
+            <div class="highlight-box">
+                💡 El <strong>modo privacidad</strong> oculta todos los montos con un solo toque
+                desde el menú <strong>···</strong> — ideal para revisar tu portafolio
+                en lugares públicos sin exponer cifras sensibles.
+            </div>
+        </div>
+    </div>
+
+    <!-- 02 · Distribución por broker -->
+    <div class="screen-block reverse">
+        <div class="screen-img">
+            <img src="img/mercados-distribucion.png" alt="Distribución por broker — gráfica de pie">
+        </div>
+        <div class="screen-info">
+            <div class="screen-num">Vista de posiciones · 02</div>
+            <div class="screen-title">Distribución de capital por broker</div>
+            <p class="screen-desc">
+                Toca la ficha de resumen en la parte superior de Mercados y se despliega
+                una gráfica de pastel que muestra cómo está distribuido tu capital
+                entre todos tus brokers — de un vistazo sabes dónde está concentrado tu portafolio
+                y si necesitas rebalancear.
+            </p>
+            <ul class="feature-list">
+                <li><div class="dot"></div>Gráfica de pastel interactiva con el porcentaje de cada broker</li>
+                <li><div class="dot"></div>Se actualiza automáticamente al agregar o vender posiciones</li>
+                <li><div class="dot"></div>Útil para detectar concentración excesiva en un solo broker o mercado</li>
+                <li><div class="dot"></div>Vista rápida sin necesidad de abrir cada cuenta por separado</li>
+                <li><div class="dot"></div>Combina posiciones en MXN y USD usando el tipo de cambio configurado</li>
+            </ul>
+            <div class="highlight-box">
+                💡 La diversificación entre brokers no es solo de activos — también protege
+                ante problemas operativos de una plataforma. Esta vista te ayuda a
+                mantener ese balance sin calcular manualmente.
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="cta">
+    <h2>Tu portafolio, claro y ordenado</h2>
+    <p>Multi-broker · Rendimiento real · Privacidad con un toque</p>
+    <a href="mercados.html" class="btn btn-outline">← Volver a Mercados</a>
+    <a href="https://apps.apple.com/app/equitybook/id6759857982" target="_blank" class="btn btn-primary">Descargar EquityBook</a>
+</div>
+
+<footer>
+    <p><a href="support.html">Soporte</a> · <a href="mailto:carlosfisico@gmail.com">carlosfisico@gmail.com</a> · <a href="privacy.html">Privacidad</a></p>
+    <p style="margin-top:8px">© 2026 EquityBook</p>
+</footer>
+
+</body>
+</html>

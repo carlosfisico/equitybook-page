@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de Transacciones – Mercados – EquityBook</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        :root {
+            --bg:#0a0a0f; --surface:#13131f; --border:#1e1e30;
+            --text:#f0f0f5; --muted:#7777aa;
+            --accent:#5e5ce6; --green:#30d158; --red:#ff453a;
+        }
+        html { scroll-behavior:smooth; }
+        body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
+
+        nav { display:flex; align-items:center; justify-content:space-between; padding:20px 32px; border-bottom:1px solid var(--border); position:sticky; top:0; background:rgba(10,10,15,.88); backdrop-filter:blur(12px); z-index:100; }
+        .logo { display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text); font-weight:700; font-size:1rem; }
+        .logo img { width:32px; height:32px; border-radius:8px; }
+        .nav-links { display:flex; gap:24px; }
+        .nav-links a { color:var(--muted); text-decoration:none; font-size:.9rem; transition:color .2s; }
+        .nav-links a:hover { color:var(--text); }
+        @media(max-width:640px){ .nav-links{display:none} }
+
+        .breadcrumb { max-width:1060px; margin:0 auto; padding:18px 24px 0; display:flex; align-items:center; gap:8px; font-size:.82rem; color:var(--muted); flex-wrap:wrap; }
+        .breadcrumb a { color:var(--muted); text-decoration:none; }
+        .breadcrumb a:hover { color:var(--text); }
+        .breadcrumb span { color:#333355; }
+
+        .hero { text-align:center; padding:60px 24px 48px; }
+        .hero-eyebrow { display:inline-block; background:rgba(94,92,230,.1); border:1px solid rgba(94,92,230,.28); color:#a0a0ff; font-size:.78rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; padding:5px 16px; border-radius:50px; margin-bottom:20px; }
+        .hero h1 { font-size:clamp(1.8rem,4vw,2.8rem); font-weight:800; letter-spacing:-1px; line-height:1.2; background:linear-gradient(135deg,#f0f0f5 30%,#5e5ce6); -webkit-background-clip:text; -webkit-text-fill-color:transparent; max-width:600px; margin:0 auto; }
+        .hero p { margin-top:16px; color:var(--muted); font-size:1rem; line-height:1.7; max-width:520px; margin-left:auto; margin-right:auto; }
+        .summary-pills { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:28px; }
+        .pill { background:rgba(255,255,255,.05); border:1px solid var(--border); border-radius:50px; padding:7px 16px; font-size:.82rem; color:#c0c0d8; }
+
+        /* Sección de contenido */
+        .content { max-width:800px; margin:0 auto; padding:40px 24px 80px; }
+
+        /* Bloques de feature */
+        .feature-block { background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:32px; margin-bottom:24px; }
+        .feature-block h3 { font-size:1.15rem; font-weight:800; margin-bottom:12px; }
+        .feature-block p { color:var(--muted); font-size:.92rem; line-height:1.75; margin-bottom:18px; }
+        .feature-list { list-style:none; display:flex; flex-direction:column; gap:11px; }
+        .feature-list li { display:flex; align-items:flex-start; gap:10px; font-size:.9rem; color:#c0c0d8; line-height:1.5; }
+        .dot { flex:0 0 6px; height:6px; background:var(--accent); border-radius:50%; margin-top:7px; }
+        .dot-green { flex:0 0 6px; height:6px; background:var(--green); border-radius:50%; margin-top:7px; }
+        .dot-red   { flex:0 0 6px; height:6px; background:var(--red);   border-radius:50%; margin-top:7px; }
+
+        /* Ejemplo visual de fila de transacción */
+        .tx-example { background:rgba(255,255,255,.03); border:1px solid var(--border); border-radius:14px; padding:16px 20px; margin-top:20px; }
+        .tx-row { display:flex; align-items:center; justify-content:space-between; padding:10px 0; border-bottom:1px solid rgba(255,255,255,.06); }
+        .tx-row:last-child { border-bottom:none; }
+        .tx-left { display:flex; align-items:center; gap:12px; }
+        .tx-badge { font-size:.72rem; font-weight:700; padding:3px 9px; border-radius:50px; }
+        .tx-badge.buy  { background:rgba(48,209,88,.12);  color:var(--green); }
+        .tx-badge.sell { background:rgba(255,69,58,.12);  color:var(--red); }
+        .tx-ticker { font-weight:700; font-size:.92rem; }
+        .tx-detail { font-size:.78rem; color:var(--muted); margin-top:2px; }
+        .tx-right { text-align:right; }
+        .tx-amount { font-size:.9rem; font-weight:700; }
+        .tx-gain { font-size:.78rem; margin-top:2px; }
+        .gain-pos { color:var(--green); }
+        .gain-neg { color:var(--red); }
+
+        .highlight-box { background:rgba(94,92,230,.08); border:1px solid rgba(94,92,230,.22); border-radius:12px; padding:14px 18px; font-size:.85rem; color:#a0a0e8; line-height:1.65; margin-top:20px; }
+
+        /* Próximamente */
+        .coming-soon { border:1.5px dashed #2a2a44; border-radius:20px; padding:40px; text-align:center; margin-bottom:24px; }
+        .coming-soon p { color:#444466; font-size:.88rem; }
+
+        .cta { text-align:center; padding:64px 24px; border-top:1px solid var(--border); }
+        .cta h2 { font-size:1.7rem; font-weight:800; letter-spacing:-.5px; margin-bottom:10px; }
+        .cta p { color:var(--muted); margin-bottom:28px; }
+        .btn { display:inline-block; text-decoration:none; font-weight:700; font-size:.92rem; padding:13px 28px; border-radius:50px; }
+        .btn-primary { background:var(--accent); color:#fff; margin-right:10px; }
+        .btn-outline { background:transparent; border:1px solid var(--border); color:var(--muted); }
+
+        footer { border-top:1px solid var(--border); padding:32px 24px; text-align:center; color:#444466; font-size:.85rem; }
+        footer a { color:var(--muted); text-decoration:none; }
+        footer a:hover { color:var(--text); }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html" class="logo"><img src="AppIcon.png" alt="EquityBook">EquityBook</a>
+    <div class="nav-links">
+        <a href="index.html">Inicio</a>
+        <a href="manual.html">Guía</a>
+        <a href="mercados.html">Mercados</a>
+        <a href="support.html">Soporte</a>
+    </div>
+</nav>
+
+<div class="breadcrumb">
+    <a href="manual.html">Guía</a><span>›</span>
+    <a href="mercados.html">Mercados</a><span>›</span>
+    Historial de transacciones
+</div>
+
+<div class="hero">
+    <span class="hero-eyebrow">📋 Mercados · Historial</span>
+    <h1>Cada operación,<br>registrada y trazable</h1>
+    <p>Consulta el historial completo de compras y ventas por ticker o broker — con fecha, precio de entrada/salida y ganancia neta de cada operación.</p>
+    <div class="summary-pills">
+        <div class="pill">📅 Ordenado por fecha</div>
+        <div class="pill">🟢 Compras y ventas</div>
+        <div class="pill">💰 Ganancia neta por operación</div>
+        <div class="pill">🏦 Filtro por broker</div>
+    </div>
+</div>
+
+<div class="content">
+
+    <!-- Qué muestra el historial -->
+    <div class="feature-block">
+        <h3>¿Qué incluye cada registro?</h3>
+        <p>Cada transacción en el historial muestra toda la información de la operación — no solo el precio, sino el resultado neto después de comisiones.</p>
+        <ul class="feature-list">
+            <li><div class="dot"></div>Tipo de operación: <strong style="color:#30d158">Compra</strong> o <strong style="color:#ff453a">Venta</strong></li>
+            <li><div class="dot"></div>Ticker y nombre del emisor</li>
+            <li><div class="dot"></div>Fecha de la operación</li>
+            <li><div class="dot"></div>Precio de entrada (compra) o precio de salida (venta)</li>
+            <li><div class="dot"></div>Cantidad de acciones operadas</li>
+            <li><div class="dot"></div>Monto total de la operación</li>
+            <li><div class="dot-green"></div>Ganancia neta en ventas — ya descontadas comisiones e impuestos</li>
+            <li><div class="dot"></div>Broker donde se ejecutó la operación</li>
+        </ul>
+
+        <!-- Ejemplo visual -->
+        <div class="tx-example">
+            <div style="font-size:.72rem;color:var(--muted);margin-bottom:8px;font-weight:600;letter-spacing:.06em;text-transform:uppercase">Ejemplo de registros en el historial</div>
+            <div class="tx-row">
+                <div class="tx-left">
+                    <span class="tx-badge buy">Compra</span>
+                    <div>
+                        <div class="tx-ticker">NVDA</div>
+                        <div class="tx-detail">8 acciones · IBKR · 15 ene 2026</div>
+                    </div>
+                </div>
+                <div class="tx-right">
+                    <div class="tx-amount">$1,474.45 USD</div>
+                    <div class="tx-detail">$184.30 / acción</div>
+                </div>
+            </div>
+            <div class="tx-row">
+                <div class="tx-left">
+                    <span class="tx-badge sell">Venta</span>
+                    <div>
+                        <div class="tx-ticker">SOUN</div>
+                        <div class="tx-detail">100 acciones · XTB · 9 mar 2026</div>
+                    </div>
+                </div>
+                <div class="tx-right">
+                    <div class="tx-amount">$805.00 USD</div>
+                    <div class="tx-gain gain-pos">+$23.00 ganancia</div>
+                </div>
+            </div>
+            <div class="tx-row">
+                <div class="tx-left">
+                    <span class="tx-badge buy">Compra</span>
+                    <div>
+                        <div class="tx-ticker">BIMBOA</div>
+                        <div class="tx-detail">1,609 acciones · GBM · 30 mar 2024</div>
+                    </div>
+                </div>
+                <div class="tx-right">
+                    <div class="tx-amount">$139,013.24 MXN</div>
+                    <div class="tx-detail">$86.36 / acción</div>
+                </div>
+            </div>
+        </div>
+        <div class="highlight-box">
+            💡 El historial incluye <strong>todas las operaciones desde que empezaste a usar EquityBook</strong> — es la memoria completa de tu actividad en mercados, útil para declaraciones fiscales, análisis de rendimiento o simplemente saber qué decidiste en cada momento.
+        </div>
+    </div>
+
+    <!-- Para qué sirve -->
+    <div class="feature-block">
+        <h3>¿Para qué usar el historial?</h3>
+        <p>Más allá de consultar operaciones pasadas, el historial es una herramienta de aprendizaje y control financiero.</p>
+        <ul class="feature-list">
+            <li><div class="dot"></div><strong style="color:#f0f0f5">Auditoría personal</strong> — verifica que cada compra o venta que hiciste quedó correctamente registrada</li>
+            <li><div class="dot"></div><strong style="color:#f0f0f5">Análisis de decisiones</strong> — revisa en qué precio compraste vs. cuándo vendiste para mejorar tu estrategia</li>
+            <li><div class="dot"></div><strong style="color:#f0f0f5">Control fiscal</strong> — identifica las ganancias realizadas del año para tu declaración de ISR</li>
+            <li><div class="dot"></div><strong style="color:#f0f0f5">Reconciliación con el broker</strong> — compara contra tu estado de cuenta para detectar discrepancias</li>
+            <li><div class="dot-green"></div><strong style="color:#f0f0f5">Total de ganancias realizadas</strong> — suma acumulada de lo que efectivamente has ganado, no solo en papel</li>
+        </ul>
+    </div>
+
+    <!-- Importar CSV -->
+    <div class="feature-block">
+        <h3>¿No tienes el historial capturado desde el inicio?</h3>
+        <p>Si ya llevas tiempo operando en un broker, puedes importar tu historial de transacciones desde un archivo CSV — sin capturar todo manualmente.</p>
+        <ul class="feature-list">
+            <li><div class="dot"></div>Importa desde el menú <strong style="color:#f0f0f5">···</strong> en la barra superior de Mercados</li>
+            <li><div class="dot"></div>Compatible con el formato de exportación de IBKR y otros brokers</li>
+            <li><div class="dot"></div>Las transacciones importadas se integran al historial y recalculan el precio promedio automáticamente</li>
+            <li><div class="dot"></div>Puedes mezclar transacciones importadas y capturadas manualmente</li>
+        </ul>
+        <div class="highlight-box">
+            💡 Exporta tu historial desde la app de tu broker (generalmente en Reportes o Actividad), importa el CSV en EquityBook y en segundos tienes toda tu trayectoria registrada — sin teclear cada operación una a una.
+        </div>
+    </div>
+
+</div>
+
+<div class="cta">
+    <h2>Tu historial siempre a la mano</h2>
+    <p>Sin Excel · Sin capturas de pantalla · Todo en un solo lugar</p>
+    <a href="mercados.html" class="btn btn-outline">← Volver a Mercados</a>
+    <a href="https://apps.apple.com/app/equitybook/id6759857982" target="_blank" class="btn btn-primary">Descargar EquityBook</a>
+</div>
+
+<footer>
+    <p><a href="support.html">Soporte</a> · <a href="mailto:carlosfisico@gmail.com">carlosfisico@gmail.com</a> · <a href="privacy.html">Privacidad</a></p>
+    <p style="margin-top:8px">© 2026 EquityBook</p>
+</footer>
+
+</body>
+</html>
