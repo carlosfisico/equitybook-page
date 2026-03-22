@@ -108,7 +108,7 @@
         .broker-grid { display:flex; gap:16px; flex-wrap:wrap; margin-top:24px; }
         .broker-thumb { display:flex; flex-direction:column; align-items:center; gap:10px; }
         .broker-thumb img {
-            width:120px; border-radius:24px; cursor:zoom-in;
+            width:130px; border-radius:24px; cursor:zoom-in;
             box-shadow:0 0 0 1.5px #3a3a3c,0 16px 32px rgba(0,0,0,.6);
             transition:transform .2s,box-shadow .2s;
         }
@@ -231,26 +231,96 @@
                 e impuestos exactamente como los cobra tu plataforma.
             </div>
 
-            <!-- Mini-grid brokers -->
-            <div style="margin-top:28px">
-                <p style="font-size:.82rem;color:var(--muted);margin-bottom:16px;line-height:1.6">
-                    Cada broker tiene su propia pantalla de configuración detallada.<br>
-                    Ejemplos de brokers soportados:
-                </p>
-                <div class="broker-grid">
-                    <div class="broker-thumb">
-                        <img src="img/mercados-agregar-ibkr.png" alt="IBKR" onclick="openLightbox(this)">
-                        <span>Interactive Brokers<br>Fija o Por niveles</span>
-                    </div>
-                    <div class="broker-thumb">
-                        <img src="img/mercados-agregar-gbm.png" alt="GBM" onclick="openLightbox(this)">
-                        <span>GBM<br>% del monto + ISR</span>
-                    </div>
-                    <div class="broker-thumb">
-                        <img src="img/mercados-agregar-xtb.png" alt="XTB" onclick="openLightbox(this)">
-                        <span>XTB<br>Sin comisión</span>
-                    </div>
-                </div>
+        </div>
+        <!-- Lista de brokers configurados -->
+        <div class="screen-img" style="display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:16px">
+            <img src="img/ms-brokers-lista.png" alt="Lista de brokers" onclick="openLightbox(this)"
+                 style="width:200px;border-radius:32px;cursor:zoom-in;box-shadow:0 0 0 1.5px #3a3a3c,0 20px 40px rgba(0,0,0,.7);transition:transform .2s" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform=''">
+            <span style="font-size:.75rem;color:var(--muted)">Lista de brokers configurados</span>
+        </div>
+    </div>
+
+    <!-- Divider -->
+    <div style="border-top:1px solid var(--border);margin:8px 0 48px"></div>
+    <p style="text-align:center;font-size:.82rem;color:var(--muted);margin-bottom:40px;letter-spacing:.06em;text-transform:uppercase;font-weight:600">Configuración detallada por broker</p>
+
+    <!-- 02 · IBKR -->
+    <div class="screen-block reverse">
+        <div class="screen-info">
+            <div class="screen-num">Configuración de Mercados · 02</div>
+            <div class="screen-title">Interactive Brokers — Fija o Por niveles</div>
+            <p class="screen-desc">
+                IBKR soporta dos estructuras de comisión. <strong style="color:#f0f0f5">Fija (Fixed)</strong>: tarifa constante por acción sin importar el volumen. <strong style="color:#f0f0f5">Por niveles (Tiered)</strong>: la tarifa baja conforme aumenta tu volumen mensual operado.
+            </p>
+            <ul class="feature-list">
+                <li><div class="dot"></div>USD $0.0035 / acción · Mínimo $0.35 · Máximo 1% del valor de la operación</li>
+                <li><div class="dot"></div>Tipo de comisión seleccionable: Sin comisión, Porcentaje del monto, Fijo por operación o Fijo por acción</li>
+                <li><div class="dot"></div><strong style="color:#f0f0f5">Incluir comisión en el PP</strong> activado — la comisión e impuestos quedan absorbidos en el precio promedio, tal como lo reporta IBKR</li>
+                <li><div class="dot"></div>Impuesto: 0% (declaración propia en origen)</li>
+            </ul>
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;flex-shrink:0">
+            <div class="broker-thumb">
+                <img src="img/ms-broker-ibkr.png" alt="IBKR config" onclick="openLightbox(this)">
+                <span>Estructura y comisión</span>
+            </div>
+            <div class="broker-thumb">
+                <img src="img/ms-broker-ibkr-comisiones.png" alt="IBKR tipos de comisión" onclick="openLightbox(this)">
+                <span>Tipos de comisión</span>
+            </div>
+            <div class="broker-thumb">
+                <img src="img/ms-broker-ibkr-pp.png" alt="IBKR incluye comisión en PP" onclick="openLightbox(this)">
+                <span>Incluir comisión en PP</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 03 · GBM -->
+    <div class="screen-block">
+        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;flex-shrink:0">
+            <div class="broker-thumb">
+                <img src="img/ms-broker-gbm.png" alt="GBM config" onclick="openLightbox(this)">
+                <span>Comisión e impuesto</span>
+            </div>
+            <div class="broker-thumb">
+                <img src="img/ms-broker-gbm2.png" alt="GBM regla de cálculo" onclick="openLightbox(this)">
+                <span>Regla de cálculo final</span>
+            </div>
+        </div>
+        <div class="screen-info">
+            <div class="screen-num">Configuración de Mercados · 03</div>
+            <div class="screen-title">GBM — Porcentaje del monto + ISR</div>
+            <p class="screen-desc">
+                GBM cobra un porcentaje sobre el valor total de la operación y retiene el ISR directamente en cada compraventa. La comisión <strong style="color:#f0f0f5">no</strong> se incluye en el precio promedio — se guarda por separado para que el PP refleje solo el precio de compra.
+            </p>
+            <ul class="feature-list">
+                <li><div class="dot"></div>Comisión: 0.250% del valor total de la operación</li>
+                <li><div class="dot"></div>Impuesto ISR: 16.0% retenido en cada operación</li>
+                <li><div class="dot"></div><strong style="color:#f0f0f5">Incluir comisión en el PP</strong> desactivado — el PP es solo el precio de compra; comisiones e impuestos se calculan por separado</li>
+                <li><div class="dot"></div>La "Regla de cálculo actual" al fondo confirma la fórmula exacta que aplicará EquityBook</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 04 · XTB -->
+    <div class="screen-block reverse">
+        <div class="screen-info">
+            <div class="screen-num">Configuración de Mercados · 04</div>
+            <div class="screen-title">XTB — Sin comisión por operación</div>
+            <p class="screen-desc">
+                XTB no cobra comisión sobre las operaciones. Se configura como <strong style="color:#f0f0f5">Fijo por operación</strong> con valor $0.00 e impuesto 0% — EquityBook registra el costo real de la operación sin añadir ningún cargo adicional.
+            </p>
+            <ul class="feature-list">
+                <li><div class="dot"></div>Tipo: Fijo por operación · $0.00</li>
+                <li><div class="dot"></div>Impuesto: 0% (declaración propia)</li>
+                <li><div class="dot"></div><strong style="color:#f0f0f5">Incluir comisión en el PP</strong> desactivado — el PP es solo el precio de compra</li>
+                <li><div class="dot"></div>Regla de cálculo: Comisión $0.00 / operación · sin retención</li>
+            </ul>
+        </div>
+        <div style="display:flex;justify-content:center;flex-shrink:0">
+            <div class="broker-thumb">
+                <img src="img/ms-broker-xtb.png" alt="XTB config" onclick="openLightbox(this)">
+                <span>XTB · Sin comisión</span>
             </div>
         </div>
     </div>
