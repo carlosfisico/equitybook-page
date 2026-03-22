@@ -189,28 +189,31 @@
         detecta el broker y aplica automáticamente sus comisiones configuradas.
     </div>
 
-    <!-- Fila 1: form + sugiere emisor -->
-    <div class="screens-pair" style="margin-bottom:32px">
-        <div class="screen-item">
-            <img src="img/mercados-agregar-form.png" alt="Formulario agregar posición">
-            <p class="screen-caption">📝 Formulario de nueva posición</p>
+    <a href="mercados-agregar.html" style="text-decoration:none;display:block;max-width:700px;margin:0 auto">
+        <div style="background:var(--surface);border:1px solid rgba(94,92,230,.35);border-radius:20px;padding:28px 32px;cursor:pointer;transition:border-color .2s;position:relative">
+            <!-- Fila de screenshots -->
+            <div class="screens-pair" style="margin-bottom:24px;pointer-events:none">
+                <div class="screen-item">
+                    <img src="img/mercados-agregar-form.png" alt="Formulario agregar posición">
+                    <p class="screen-caption">📝 Formulario de nueva posición</p>
+                </div>
+                <div class="screen-item">
+                    <img src="img/mercados-agregar-sugiere.png" alt="Sugerencia de emisor">
+                    <p class="screen-caption">🔍 Autocomplete de emisor</p>
+                </div>
+                <div class="screen-item">
+                    <img src="img/mercados-agregar-broker.png" alt="Selección de broker">
+                    <p class="screen-caption">🏦 Selección de broker</p>
+                </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px">
+                <p style="font-size:.85rem;color:var(--muted);line-height:1.6;max-width:480px">
+                    💡 Precio promedio ponderado automático · Comisiones por broker · Autocomplete de emisor · 4 brokers soportados
+                </p>
+                <span style="color:#a0a0ff;font-size:.88rem;font-weight:700;white-space:nowrap;margin-left:16px">Ver detalle →</span>
+            </div>
         </div>
-        <div class="screen-item">
-            <img src="img/mercados-agregar-sugiere.png" alt="Sugerencia de emisor">
-            <p class="screen-caption">🔍 Autocompleta el nombre del emisor al escribir el ticker</p>
-        </div>
-        <div class="screen-item">
-            <img src="img/mercados-agregar-broker.png" alt="Selección de broker">
-            <p class="screen-caption">🏦 Selecciona el broker — aplica comisiones automáticamente</p>
-        </div>
-    </div>
-
-    <div class="tip-box" style="max-width:680px;margin:0 auto">
-        💡 Al seleccionar el broker, EquityBook carga automáticamente su estructura de comisiones
-        e impuestos previamente configurada — el precio promedio y el costo real de la operación
-        se calculan sin que tengas que hacer ningún cálculo adicional.
-        <a href="mercados-settings.html" style="color:#a0a0ff;text-decoration:none;display:block;margin-top:8px">⚙️ Ver configuración de brokers →</a>
-    </div>
+    </a>
 </div>
 
 <!-- ── Operaciones + Por qué importa ── -->
