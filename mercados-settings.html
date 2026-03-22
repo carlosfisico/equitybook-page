@@ -104,14 +104,42 @@
             border-radius:12px; padding:14px 18px; font-size:.85rem; color:#a0a0e8; line-height:1.65;
         }
 
-        /* ── mini-grid de brokers (3 pantallas) ── */
+        /* ── mini-grid de brokers ── */
         .broker-grid { display:flex; gap:16px; flex-wrap:wrap; margin-top:24px; }
         .broker-thumb { display:flex; flex-direction:column; align-items:center; gap:10px; }
         .broker-thumb img {
-            width:120px; border-radius:24px;
+            width:120px; border-radius:24px; cursor:zoom-in;
             box-shadow:0 0 0 1.5px #3a3a3c,0 16px 32px rgba(0,0,0,.6);
+            transition:transform .2s,box-shadow .2s;
+        }
+        .broker-thumb img:hover {
+            transform:scale(1.06);
+            box-shadow:0 0 0 2px #5e5ce6,0 20px 40px rgba(0,0,0,.8);
         }
         .broker-thumb span { font-size:.75rem; color:var(--muted); text-align:center; }
+
+        /* ── Lightbox ── */
+        #lightbox {
+            display:none; position:fixed; inset:0; z-index:1000;
+            background:rgba(0,0,0,.88); backdrop-filter:blur(6px);
+            align-items:center; justify-content:center; cursor:zoom-out;
+        }
+        #lightbox.open { display:flex; }
+        #lightbox img {
+            max-height:88vh; max-width:90vw;
+            border-radius:32px;
+            box-shadow:0 0 0 2px #5e5ce6,0 40px 80px rgba(0,0,0,.9);
+            animation:lb-in .18s ease;
+        }
+        @keyframes lb-in { from{opacity:0;transform:scale(.92)} to{opacity:1;transform:scale(1)} }
+        #lightbox-close {
+            position:fixed; top:20px; right:24px;
+            font-size:1.8rem; color:#fff; cursor:pointer;
+            background:rgba(255,255,255,.1); border:none;
+            border-radius:50%; width:40px; height:40px;
+            display:flex; align-items:center; justify-content:center;
+            line-height:1;
+        }
 
         /* ── CTA ── */
         .cta { text-align:center; padding:64px 24px; border-top:1px solid var(--border); }
@@ -211,20 +239,16 @@
                 </p>
                 <div class="broker-grid">
                     <div class="broker-thumb">
-                        <img src="img/mercados-agregar-ibkr.png" alt="IBKR">
-                        <span>Interactive Brokers<br>Fijo por acción</span>
+                        <img src="img/mercados-agregar-ibkr.png" alt="IBKR" onclick="openLightbox(this)">
+                        <span>Interactive Brokers<br>Fija o Por niveles</span>
                     </div>
                     <div class="broker-thumb">
-                        <img src="img/mercados-agregar-gbm.png" alt="GBM">
+                        <img src="img/mercados-agregar-gbm.png" alt="GBM" onclick="openLightbox(this)">
                         <span>GBM<br>% del monto + ISR</span>
                     </div>
                     <div class="broker-thumb">
-                        <img src="img/mercados-agregar-xtb.png" alt="XTB">
+                        <img src="img/mercados-agregar-xtb.png" alt="XTB" onclick="openLightbox(this)">
                         <span>XTB<br>Sin comisión</span>
-                    </div>
-                    <div class="broker-thumb">
-                        <img src="img/mercados-agregar-sinbroker.png" alt="Sin broker">
-                        <span>Sin broker<br>Solo seguimiento</span>
                     </div>
                 </div>
             </div>
@@ -245,6 +269,26 @@
     <p><a href="support.html">Soporte</a> · <a href="mailto:carlosfisico@gmail.com">carlosfisico@gmail.com</a> · <a href="privacy.html">Privacidad</a></p>
     <p style="margin-top:8px">© 2026 EquityBook</p>
 </footer>
+
+<!-- Lightbox -->
+<div id="lightbox" onclick="closeLightbox()">
+    <button id="lightbox-close" onclick="closeLightbox()">✕</button>
+    <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+function openLightbox(img) {
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox-img').alt = img.alt;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLightbox(); });
+</script>
 
 </body>
 </html>
