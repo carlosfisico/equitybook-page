@@ -248,52 +248,51 @@
     </div>
 
     <!-- 04 · Brokers soportados -->
-    <div class="screen-block reverse">
-        <div class="screen-info" style="padding-top:0">
-            <div class="screen-num">Agregar posición · 04</div>
-            <div class="screen-title">Cada broker, con su configuración exacta</div>
-            <p class="screen-desc">
-                EquityBook adapta el formulario de compra según el broker seleccionado:
-                muestra los campos relevantes y aplica la lógica de costos correspondiente.
-                Así el registro es preciso sin importar dónde inviertas.
-            </p>
-            <ul class="feature-list">
-                <li><div class="dot"></div><strong style="color:#f0f0f5">IBKR</strong> — comisión fija por acción o por niveles, con mínimo por operación, sin impuesto en origen</li>
-                <li><div class="dot"></div><strong style="color:#f0f0f5">GBM</strong> — porcentaje del monto operado con retención de ISR del 16%</li>
-                <li><div class="dot"></div><strong style="color:#f0f0f5">XTB</strong> — sin comisión por operación, cero costo adicional registrado</li>
-                <li><div class="dot"></div><strong style="color:#f0f0f5">Sin broker</strong> — el sistema marca en rojo los campos faltantes y bloquea el registro hasta completar la información mínima necesaria para mantener registros precisos con comisiones e impuestos según aplique</li>
-            </ul>
-            <div class="highlight-box">
-                💡 Puedes mezclar brokers en tu portafolio: IBKR para acciones USA,
-                GBM para bolsa mexicana, XTB para ETFs europeos.
-                EquityBook consolida todo en una sola vista con el rendimiento neto de cada uno.
-                <a href="mercados-settings.html" style="color:#a0a0ff;text-decoration:none;display:block;margin-top:8px">Ver configuración de brokers →</a>
+    <div style="max-width:860px;margin:0 auto 64px">
+        <div class="screen-num">Agregar posición · 04</div>
+        <div class="screen-title" style="margin-bottom:8px">Cada broker, con su configuración exacta</div>
+        <p class="screen-desc" style="margin-bottom:32px">
+            EquityBook adapta el formulario de compra según el broker seleccionado:
+            muestra los campos relevantes y aplica la lógica de costos correspondiente.
+            Así el registro es preciso sin importar dónde inviertas.
+        </p>
+
+        <!-- Grid de capturas por broker -->
+        <div class="broker-grid" style="margin-bottom:28px">
+            <div class="broker-card">
+                <img src="img/mercados-agregar-ibkr.png" alt="IBKR">
+                <div class="broker-card-name">Interactive Brokers</div>
+                <div class="broker-card-sub">Fija o Por niveles</div>
+            </div>
+            <div class="broker-card">
+                <img src="img/mercados-agregar-gbm.png" alt="GBM">
+                <div class="broker-card-name">GBM</div>
+                <div class="broker-card-sub">0.25% del monto + ISR 16%</div>
+            </div>
+            <div class="broker-card">
+                <img src="img/mercados-agregar-xtb.png" alt="XTB">
+                <div class="broker-card-name">XTB</div>
+                <div class="broker-card-sub">Sin comisión</div>
+            </div>
+            <div class="broker-card">
+                <img src="img/mercados-agregar-sinbroker.png" alt="Sin broker">
+                <div class="broker-card-name">Sin broker</div>
+                <div class="broker-card-sub" style="color:#ff6b6b">🔒 Campos obligatorios en rojo</div>
             </div>
         </div>
-        <!-- Grid de capturas por broker -->
-        <div style="flex:0 0 auto">
-            <div class="broker-grid">
-                <div class="broker-card">
-                    <img src="img/mercados-agregar-ibkr.png" alt="IBKR">
-                    <div class="broker-card-name">Interactive Brokers</div>
-                    <div class="broker-card-sub">Fija o Por niveles</div>
-                </div>
-                <div class="broker-card">
-                    <img src="img/mercados-agregar-gbm.png" alt="GBM">
-                    <div class="broker-card-name">GBM</div>
-                    <div class="broker-card-sub">0.25% del monto + ISR 16%</div>
-                </div>
-                <div class="broker-card">
-                    <img src="img/mercados-agregar-xtb.png" alt="XTB">
-                    <div class="broker-card-name">XTB</div>
-                    <div class="broker-card-sub">Sin comisión</div>
-                </div>
-                <div class="broker-card">
-                    <img src="img/mercados-agregar-sinbroker.png" alt="Sin broker">
-                    <div class="broker-card-name">Sin broker</div>
-                    <div class="broker-card-sub" style="color:#ff6b6b">🔒 Campos obligatorios en rojo</div>
-                </div>
-            </div>
+
+        <!-- Bullets debajo de las imágenes -->
+        <ul class="feature-list" style="margin-bottom:20px">
+            <li><div class="dot"></div><strong style="color:#f0f0f5">IBKR</strong> — comisión fija por acción o por niveles, con mínimo por operación, sin impuesto en origen</li>
+            <li><div class="dot"></div><strong style="color:#f0f0f5">GBM</strong> — porcentaje del monto operado con retención de ISR del 16%</li>
+            <li><div class="dot"></div><strong style="color:#f0f0f5">XTB</strong> — sin comisión por operación, cero costo adicional registrado</li>
+            <li><div class="dot"></div><strong style="color:#f0f0f5">Sin broker</strong> — el sistema marca en rojo los campos faltantes y bloquea el registro hasta completar la información mínima necesaria para mantener registros precisos con comisiones e impuestos según aplique</li>
+        </ul>
+        <div class="highlight-box">
+            💡 Puedes mezclar brokers en tu portafolio: IBKR para acciones USA,
+            GBM para bolsa mexicana, XTB para ETFs europeos.
+            EquityBook consolida todo en una sola vista con el rendimiento neto de cada uno.
+            <a href="mercados-settings.html" style="color:#a0a0ff;text-decoration:none;display:block;margin-top:8px">Ver configuración de brokers →</a>
         </div>
     </div>
 
