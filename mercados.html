@@ -168,15 +168,48 @@
                 <div class="tb-menu-items">
                     <div class="tb-menu-chip">👁 Ocultar / mostrar montos</div>
                     <div class="tb-menu-chip">📂 Importar transacciones CSV</div>
-                    <div class="tb-menu-chip">⚙️ Configuración de Mercados</div>
+                    <a href="mercados-settings.html" style="text-decoration:none"><div class="tb-menu-chip" style="border-color:rgba(94,92,230,.5);cursor:pointer">⚙️ Configuración de Mercados →</div></a>
                 </div>
                 <p style="margin-top:12px;font-size:.82rem;color:var(--muted);line-height:1.65">
                     El menú de tres puntos agrupa las opciones adicionales: puedes ocultar o mostrar todos los montos,
                     <strong style="color:#f0f0f5">importar transacciones desde un archivo CSV</strong>
-                    (compatible con el formato de exportación de IBKR y otros brokers) y acceder a la configuración de la sección.
+                    (compatible con el formato de exportación de IBKR y otros brokers) y acceder a la
+                    <a href="mercados-settings.html" style="color:#a0a0ff;text-decoration:none">configuración detallada de brokers y comisiones →</a>
                 </p>
             </div>
         </div>
+    </div>
+</div>
+
+<!-- ── Agregar posición ── -->
+<div class="section">
+    <div class="section-title">Agregar una posición</div>
+    <div class="section-sub">
+        Registra una compra en segundos. EquityBook sugiere el nombre del emisor mientras escribes el ticker,
+        detecta el broker y aplica automáticamente sus comisiones configuradas.
+    </div>
+
+    <!-- Fila 1: form + sugiere emisor -->
+    <div class="screens-pair" style="margin-bottom:32px">
+        <div class="screen-item">
+            <img src="img/mercados-agregar-form.png" alt="Formulario agregar posición">
+            <p class="screen-caption">📝 Formulario de nueva posición</p>
+        </div>
+        <div class="screen-item">
+            <img src="img/mercados-agregar-sugiere.png" alt="Sugerencia de emisor">
+            <p class="screen-caption">🔍 Autocompleta el nombre del emisor al escribir el ticker</p>
+        </div>
+        <div class="screen-item">
+            <img src="img/mercados-agregar-broker.png" alt="Selección de broker">
+            <p class="screen-caption">🏦 Selecciona el broker — aplica comisiones automáticamente</p>
+        </div>
+    </div>
+
+    <div class="tip-box" style="max-width:680px;margin:0 auto">
+        💡 Al seleccionar el broker, EquityBook carga automáticamente su estructura de comisiones
+        e impuestos previamente configurada — el precio promedio y el costo real de la operación
+        se calculan sin que tengas que hacer ningún cálculo adicional.
+        <a href="mercados-settings.html" style="color:#a0a0ff;text-decoration:none;display:block;margin-top:8px">⚙️ Ver configuración de brokers →</a>
     </div>
 </div>
 
