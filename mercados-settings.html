@@ -258,6 +258,43 @@
         </div>
     </div>
 
+    <!-- Análisis · Corrida y Renta Fija -->
+    <div style="border-top:1px solid var(--border);margin:8px 0 48px"></div>
+    <div class="screen-block">
+        <div class="screen-img">
+            <img src="img/ms-settings-analisis.png" alt="Configuración Análisis — Corrida y Renta Fija" onclick="openLightbox(this)"
+                 style="cursor:zoom-in;transition:transform .2s,box-shadow .2s"
+                 onmouseover="this.style.transform='scale(1.03)';this.style.boxShadow='0 0 0 2px #5e5ce6,0 32px 64px rgba(0,0,0,.9)'"
+                 onmouseout="this.style.transform='';this.style.boxShadow=''">
+        </div>
+        <div class="screen-info">
+            <div class="screen-num">Configuración de Mercados · Análisis</div>
+            <div class="screen-title">Parámetros de corrida y rendimiento de referencia</div>
+            <p class="screen-desc">
+                La sección <strong style="color:#f0f0f5">Análisis</strong> dentro de la configuración de Mercados te permite afinar dos parámetros clave que se aplican al análisis de cada posición.
+            </p>
+            <ul class="feature-list">
+                <li>
+                    <div class="dot"></div>
+                    <div>
+                        <strong style="color:#f0f0f5">Rendimiento Anual % — Renta Fija</strong><br>
+                        <span style="color:var(--muted)">Define la tasa anual de referencia (ej. 15%) que usaría tu dinero si estuviera en renta fija. Con esto, la corrida de cada acción te muestra cuánto generaría ese mismo capital en instrumentos de deuda — un benchmark directo para evaluar si vale la pena mantener cada posición en mercado.</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="dot"></div>
+                    <div>
+                        <strong style="color:#f0f0f5">Incremento % para Corrida</strong><br>
+                        <span style="color:var(--muted)">Define el paso de avance en cada nivel de precio de la corrida (ej. 0.50%). La corrida proyecta los escenarios de venta a distintos precios objetivo (TP) usando este incremento, mostrando la ganancia neta en cada nivel — útil para decidir dónde colocar tu take profit.</span>
+                    </div>
+                </li>
+            </ul>
+            <div class="highlight-box">
+                📊 Estos parámetros se usan en el análisis de cada acción individual — al abrir una posición verás la corrida de precios con los TP proyectados y el comparativo contra renta fija calculado con el capital invertido.
+            </div>
+        </div>
+    </div>
+
     <!-- Divider -->
     <div style="border-top:1px solid var(--border);margin:8px 0 48px"></div>
     <p style="text-align:center;font-size:.82rem;color:var(--muted);margin-bottom:40px;letter-spacing:.06em;text-transform:uppercase;font-weight:600">Configuración detallada por broker</p>
