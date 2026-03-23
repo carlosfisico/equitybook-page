@@ -143,6 +143,29 @@
             </div>
         </div>
     </a>
+
+    <!-- Pie chart por broker -->
+    <div style="margin-top:40px;max-width:700px;margin-left:auto;margin-right:auto">
+        <div style="font-size:.72rem;color:var(--muted);font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:18px">Distribución dentro de cada broker</div>
+        <div style="display:flex;gap:28px;align-items:center;flex-wrap:wrap;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:28px 32px">
+            <div style="flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:10px">
+                <img src="img/mercados-pie-broker.png" alt="Gráfica pie por broker" onclick="openLightbox(this)"
+                     style="width:200px;border-radius:36px;cursor:zoom-in;box-shadow:0 0 0 2px #3a3a3c,0 28px 56px rgba(0,0,0,.8);transition:transform .2s,box-shadow .2s"
+                     onmouseover="this.style.transform='scale(1.04)';this.style.boxShadow='0 0 0 2px #5e5ce6,0 28px 56px rgba(0,0,0,.9)'"
+                     onmouseout="this.style.transform='';this.style.boxShadow='0 0 0 2px #3a3a3c,0 28px 56px rgba(0,0,0,.8)'">
+                <span style="font-size:.75rem;color:var(--muted)">🥧 Cartera dentro del broker</span>
+            </div>
+            <div style="flex:1;min-width:200px">
+                <div style="font-size:.97rem;font-weight:700;color:var(--text);margin-bottom:8px">Toca la cartera agrupada por broker</div>
+                <p style="font-size:.85rem;color:var(--muted);line-height:1.75;margin-bottom:14px">
+                    Al dar clic en la tarjeta de un broker, EquityBook despliega una gráfica de pie que muestra cómo se distribuye tu capital <strong style="color:#f0f0f5">dentro de ese broker</strong> — ticker por ticker, con su porcentaje y monto.
+                </p>
+                <div style="background:rgba(94,92,230,.08);border:1px solid rgba(94,92,230,.25);border-radius:10px;padding:10px 14px;font-size:.82rem;color:#b0b0ff;line-height:1.6">
+                    💡 Útil para detectar concentración: si un solo activo representa el 70% de tu broker, puedes visualizarlo al instante sin hacer cálculos manuales.
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- ── Barra superior de Mercados ── -->
