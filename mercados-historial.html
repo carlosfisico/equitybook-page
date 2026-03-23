@@ -182,6 +182,52 @@
         </div>
     </div>
 
+    <!-- Barra superior -->
+    <div class="feature-block">
+        <h3>Barra superior — accesos rápidos</h3>
+        <p>El historial tiene seis acciones siempre disponibles en la barra superior, de izquierda a derecha:</p>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-top:20px">
+
+            <div style="background:rgba(255,69,58,.06);border:1px solid rgba(255,69,58,.2);border-radius:14px;padding:18px 16px">
+                <div style="font-size:1.5rem;margin-bottom:8px">🗑</div>
+                <div style="font-weight:700;font-size:.88rem;color:var(--text);margin-bottom:5px">Borrar historial</div>
+                <p style="font-size:.8rem;color:var(--muted);line-height:1.5">Elimina todas las transacciones del historial de una sola vez. Solicita confirmación antes de proceder.</p>
+            </div>
+
+            <a href="calculadora.html" style="text-decoration:none;color:inherit;display:block;background:rgba(94,92,230,.06);border:1px solid rgba(94,92,230,.2);border-radius:14px;padding:18px 16px;transition:background .2s" onmouseover="this.style.background='rgba(94,92,230,.14)'" onmouseout="this.style.background='rgba(94,92,230,.06)'">
+                <div style="font-size:1.5rem;margin-bottom:8px">🧮</div>
+                <div style="font-weight:700;font-size:.88rem;color:var(--text);margin-bottom:5px">Calculadora RPN <span style="color:#a0a0ff;font-size:.76rem">→</span></div>
+                <p style="font-size:.8rem;color:var(--muted);line-height:1.5">Acceso directo a la calculadora RPN para hacer cálculos sin salir del historial.</p>
+            </a>
+
+            <div style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:14px;padding:18px 16px">
+                <div style="font-size:1.5rem;margin-bottom:8px">📋</div>
+                <div style="font-weight:700;font-size:.88rem;color:var(--text);margin-bottom:5px">Listado completo</div>
+                <p style="font-size:.8rem;color:var(--muted);line-height:1.5">Cambia a la vista de todas las operaciones en orden cronológico — compras y ventas sin agrupar por día.</p>
+            </div>
+
+            <div style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:14px;padding:18px 16px">
+                <div style="font-size:1.5rem;margin-bottom:8px">🏦</div>
+                <div style="font-weight:700;font-size:.88rem;color:var(--text);margin-bottom:5px">Filtro por broker</div>
+                <p style="font-size:.8rem;color:var(--muted);line-height:1.5">Filtra el historial para ver solo las operaciones de un broker específico: GBM, IBKR, XTB u otro.</p>
+            </div>
+
+            <div style="background:rgba(48,209,88,.06);border:1px solid rgba(48,209,88,.2);border-radius:14px;padding:18px 16px">
+                <div style="font-size:1.5rem;margin-bottom:8px">📤</div>
+                <div style="font-weight:700;font-size:.88rem;color:var(--text);margin-bottom:5px">Exportar reporte</div>
+                <p style="font-size:.8rem;color:var(--muted);line-height:1.5">Genera y comparte el historial como <strong style="color:#f0f0f5">PDF o CSV</strong> — útil para declaraciones fiscales o análisis en Excel.</p>
+            </div>
+
+            <div style="background:rgba(94,92,230,.06);border:1px solid rgba(94,92,230,.2);border-radius:14px;padding:18px 16px">
+                <div style="font-size:1.5rem;margin-bottom:8px">📊</div>
+                <div style="font-weight:700;font-size:.88rem;color:var(--text);margin-bottom:5px">Reporte con gráfica</div>
+                <p style="font-size:.8rem;color:var(--muted);line-height:1.5">Vista del historial con una gráfica de rendimiento — para visualizar la evolución de tus ganancias en el tiempo.</p>
+            </div>
+
+        </div>
+    </div>
+
     <!-- Qué muestra el historial -->
     <div class="feature-block">
         <h3>¿Qué incluye cada registro?</h3>
