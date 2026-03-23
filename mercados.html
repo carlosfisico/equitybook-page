@@ -216,6 +216,65 @@
 </div>
 
 
+<!-- ── Operaciones sobre una posición ── -->
+<div class="section">
+    <div class="section-title">Operaciones sobre una posición</div>
+    <div class="section-sub">
+        Al expandir una posición aparecen las opciones disponibles: <strong style="color:#f0f0f5">eliminar</strong> la posición o <strong style="color:#f0f0f5">registrar una transacción</strong> (compra o venta).
+    </div>
+
+    <div style="display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-bottom:36px">
+        <!-- Eliminar -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+            <img src="img/mercados-broker-posicion-eliminar.png" alt="Eliminar posición" onclick="openLightbox(this)"
+                 style="width:200px;border-radius:36px;cursor:zoom-in;box-shadow:0 0 0 2px #3a3a3c,0 28px 56px rgba(0,0,0,.8);transition:transform .2s,box-shadow .2s"
+                 onmouseover="this.style.transform='scale(1.04)';this.style.boxShadow='0 0 0 2px #5e5ce6,0 28px 56px rgba(0,0,0,.9)'"
+                 onmouseout="this.style.transform='';this.style.boxShadow='0 0 0 2px #3a3a3c,0 28px 56px rgba(0,0,0,.8)'">
+            <span style="font-size:.75rem;color:var(--muted)">🗑 Eliminar posición</span>
+        </div>
+        <!-- Registrar transacción (lista) -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+            <img src="img/mercados-broker-posicion-registrar-transaccion.png" alt="Registrar transacción" onclick="openLightbox(this)"
+                 style="width:200px;border-radius:36px;cursor:zoom-in;box-shadow:0 0 0 2px #3a3a3c,0 28px 56px rgba(0,0,0,.8);transition:transform .2s,box-shadow .2s"
+                 onmouseover="this.style.transform='scale(1.04)';this.style.boxShadow='0 0 0 2px #5e5ce6,0 28px 56px rgba(0,0,0,.9)'"
+                 onmouseout="this.style.transform='';this.style.boxShadow='0 0 0 2px #3a3a3c,0 28px 56px rgba(0,0,0,.8)'">
+            <span style="font-size:.75rem;color:var(--muted)">📋 Opciones disponibles</span>
+        </div>
+        <!-- Formulario de transacción -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+            <img src="img/mercados-broker-posicion-registrar-transaccion-formulario.png" alt="Formulario de transacción" onclick="openLightbox(this)"
+                 style="width:200px;border-radius:36px;cursor:zoom-in;box-shadow:0 0 0 2px #3a3a3c,0 28px 56px rgba(0,0,0,.8);transition:transform .2s,box-shadow .2s"
+                 onmouseover="this.style.transform='scale(1.04)';this.style.boxShadow='0 0 0 2px #5e5ce6,0 28px 56px rgba(0,0,0,.9)'"
+                 onmouseout="this.style.transform='';this.style.boxShadow='0 0 0 2px #3a3a3c,0 28px 56px rgba(0,0,0,.8)'">
+            <span style="font-size:.75rem;color:var(--muted)">📝 Formulario compra / venta</span>
+        </div>
+    </div>
+
+    <!-- Explicación en dos columnas -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:820px;margin:0 auto">
+        <!-- Vender -->
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px 24px">
+            <div style="font-size:.72rem;color:var(--muted);font-weight:600;letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px">Vender posición</div>
+            <div style="font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:8px">Cierre total o parcial</div>
+            <p style="font-size:.84rem;color:var(--muted);line-height:1.7">
+                Al registrar una venta puedes liquidar toda la posición o solo una parte de los lotes. EquityBook calcula automáticamente la <strong style="color:#f0f0f5">ganancia o pérdida real</strong> descontando el precio promedio ponderado y la comisión configurada.
+            </p>
+        </div>
+        <!-- Comprar más -->
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px 24px">
+            <div style="font-size:.72rem;color:var(--muted);font-weight:600;letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px">Comprar más</div>
+            <div style="font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:8px">PP se actualiza solo</div>
+            <p style="font-size:.84rem;color:var(--muted);line-height:1.7">
+                Al agregar una nueva compra sobre una posición ya abierta, el <strong style="color:#f0f0f5">precio promedio ponderado (PP)</strong> se recalcula automáticamente considerando todos los lotes anteriores — sin necesidad de ajuste manual.
+            </p>
+        </div>
+    </div>
+
+    <div style="max-width:820px;margin:14px auto 0;background:rgba(94,92,230,.06);border:1px solid rgba(94,92,230,.2);border-radius:12px;padding:12px 18px;font-size:.83rem;color:#b0b0ff;line-height:1.65">
+        💡 Para acceder a estas opciones, toca la fila de la posición para expandir sus lotes y desliza o busca el botón de acción correspondiente.
+    </div>
+</div>
+
 <!-- ── Corrida de precios ── -->
 <div class="section">
     <div class="section-title">Corrida de precios — análisis de escenarios</div>
