@@ -113,6 +113,75 @@
 
 <div class="content">
 
+    <!-- Posiciones cerradas por día -->
+    <div class="feature-block">
+        <h3>Posiciones cerradas — vista por día</h3>
+        <p>El historial agrupa las posiciones cerradas por fecha. De un vistazo ves qué días tuviste actividad y cuántas operaciones completaste — sin tener que buscar entre cientos de registros.</p>
+
+        <!-- Fila 1: vista general + expandida -->
+        <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin:24px 0 8px">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+                <img src="img/historial-posiciones-diarias.png" alt="Historial por día" onclick="openLightbox(this)"
+                     style="width:190px;border-radius:34px;cursor:zoom-in;box-shadow:0 0 0 2px #3a3a3c,0 24px 48px rgba(0,0,0,.8);transition:transform .2s,box-shadow .2s"
+                     onmouseover="this.style.transform='scale(1.04)';this.style.boxShadow='0 0 0 2px #5e5ce6,0 24px 48px rgba(0,0,0,.9)'"
+                     onmouseout="this.style.transform='';this.style.boxShadow='0 0 0 2px #3a3a3c,0 24px 48px rgba(0,0,0,.8)'">
+                <span style="font-size:.73rem;color:var(--muted)">📅 Vista agrupada por día</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+                <img src="img/historial-posiciones-expandir.png" alt="Día expandido" onclick="openLightbox(this)"
+                     style="width:190px;border-radius:34px;cursor:zoom-in;box-shadow:0 0 0 2px #3a3a3c,0 24px 48px rgba(0,0,0,.8);transition:transform .2s,box-shadow .2s"
+                     onmouseover="this.style.transform='scale(1.04)';this.style.boxShadow='0 0 0 2px #5e5ce6,0 24px 48px rgba(0,0,0,.9)'"
+                     onmouseout="this.style.transform='';this.style.boxShadow='0 0 0 2px #3a3a3c,0 24px 48px rgba(0,0,0,.8)'">
+                <span style="font-size:.73rem;color:var(--muted)">🔽 Expandir un día</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+                <img src="img/historial-posiciones-detalle.png" alt="Detalle de operación" onclick="openLightbox(this)"
+                     style="width:190px;border-radius:34px;cursor:zoom-in;box-shadow:0 0 0 2px #3a3a3c,0 24px 48px rgba(0,0,0,.8);transition:transform .2s,box-shadow .2s"
+                     onmouseover="this.style.transform='scale(1.04)';this.style.boxShadow='0 0 0 2px #5e5ce6,0 24px 48px rgba(0,0,0,.9)'"
+                     onmouseout="this.style.transform='';this.style.boxShadow='0 0 0 2px #3a3a3c,0 24px 48px rgba(0,0,0,.8)'">
+                <span style="font-size:.73rem;color:var(--muted)">🔍 Detalle al dar clic</span>
+            </div>
+        </div>
+
+        <!-- Cómo interactuar -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:20px 0 0">
+            <div style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;padding:16px">
+                <div style="font-size:.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">Expandir día</div>
+                <p style="font-size:.83rem;color:#c0c0d8;line-height:1.6">Toca el encabezado de un día para desplegar todas las posiciones cerradas en esa fecha.</p>
+            </div>
+            <div style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;padding:16px">
+                <div style="font-size:.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">Ver detalle</div>
+                <p style="font-size:.83rem;color:#c0c0d8;line-height:1.6">Da clic en una operación para ver el desglose completo: precio entrada, salida, lotes, comisión y ganancia neta.</p>
+            </div>
+            <div style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;padding:16px">
+                <div style="font-size:.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">Editar o eliminar</div>
+                <p style="font-size:.83rem;color:#c0c0d8;line-height:1.6">Desliza una operación para corregir datos o eliminarla — útil si cometiste un error al registrarla.</p>
+            </div>
+        </div>
+
+        <!-- Editar / Eliminar screenshots -->
+        <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin:24px 0 0">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+                <img src="img/historial-posiciones-editar.png" alt="Editar transacción" onclick="openLightbox(this)"
+                     style="width:190px;border-radius:34px;cursor:zoom-in;box-shadow:0 0 0 2px #3a3a3c,0 24px 48px rgba(0,0,0,.8);transition:transform .2s,box-shadow .2s"
+                     onmouseover="this.style.transform='scale(1.04)';this.style.boxShadow='0 0 0 2px #5e5ce6,0 24px 48px rgba(0,0,0,.9)'"
+                     onmouseout="this.style.transform='';this.style.boxShadow='0 0 0 2px #3a3a3c,0 24px 48px rgba(0,0,0,.8)'">
+                <span style="font-size:.73rem;color:var(--muted)">✏️ Editar transacción</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+                <img src="img/historial-posiciones-eliminar.png" alt="Eliminar transacción" onclick="openLightbox(this)"
+                     style="width:190px;border-radius:34px;cursor:zoom-in;box-shadow:0 0 0 2px #3a3a3c,0 24px 48px rgba(0,0,0,.8);transition:transform .2s,box-shadow .2s"
+                     onmouseover="this.style.transform='scale(1.04)';this.style.boxShadow='0 0 0 2px #5e5ce6,0 24px 48px rgba(0,0,0,.9)'"
+                     onmouseout="this.style.transform='';this.style.boxShadow='0 0 0 2px #3a3a3c,0 24px 48px rgba(0,0,0,.8)'">
+                <span style="font-size:.73rem;color:var(--muted)">🗑 Eliminar transacción</span>
+            </div>
+        </div>
+
+        <div class="highlight-box" style="margin-top:20px">
+            💡 Las posiciones cerradas son las que ya vendiste por completo. Las posiciones parcialmente vendidas siguen apareciendo en la vista principal de Mercados hasta que cierres el total.
+        </div>
+    </div>
+
     <!-- Qué muestra el historial -->
     <div class="feature-block">
         <h3>¿Qué incluye cada registro?</h3>
@@ -217,6 +286,17 @@
     <p><a href="support.html">Soporte</a> · <a href="mailto:carlosfisico@gmail.com">carlosfisico@gmail.com</a> · <a href="privacy.html">Privacidad</a></p>
     <p style="margin-top:8px">© 2026 EquityBook</p>
 </footer>
+
+<!-- Lightbox -->
+<div id="lightbox" onclick="closeLightbox()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:999;align-items:center;justify-content:center;cursor:zoom-out">
+    <button onclick="closeLightbox()" style="position:fixed;top:20px;right:24px;background:none;border:none;color:#fff;font-size:1.6rem;cursor:pointer;z-index:1000">✕</button>
+    <img id="lightbox-img" src="" alt="" style="max-width:90vw;max-height:90vh;border-radius:24px;box-shadow:0 0 0 2px #3a3a3c">
+</div>
+<script>
+function openLightbox(img){const lb=document.getElementById('lightbox');document.getElementById('lightbox-img').src=img.src;lb.style.display='flex';document.body.style.overflow='hidden';}
+function closeLightbox(){document.getElementById('lightbox').style.display='none';document.body.style.overflow='';}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox();});
+</script>
 
 </body>
 </html>
